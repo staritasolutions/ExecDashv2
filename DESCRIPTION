@@ -5,9 +5,20 @@ Authors@R: person('Starita', 'Solutions', email = 'staritasolutions@gmail.com', 
 Description: App under development for the Executive Dashboard.
 License: MIT + file LICENSE
 Imports: 
+    bs4Dash,
     config (>= 0.3.1),
+    ggiraph,
     golem (>= 0.4.0),
+    gt,
+    scales,
     shiny (>= 1.7.3)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.2
+Suggests: 
+    spelling,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Language: en-US
+Depends: 
+    tidyverse

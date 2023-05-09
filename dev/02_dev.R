@@ -94,3 +94,11 @@ usethis::use_gitlab_ci()
 # You're now set! ----
 # go to dev/03_deploy.R
 rstudioapi::navigateToFile("dev/03_deploy.R")
+
+# Packages
+usethis::use_package("bs4Dash")
+usethis::use_package("tidyverse")
+usethis::use_package("gt")
+usethis::use_package("ggiraph")
+usethis::use_package("scales")
+usethis::use_package("tidyverse", type = "depends")
