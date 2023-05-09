@@ -21,12 +21,12 @@
 golem::fill_desc(
   pkg_name = "ExecDashv2", # The Name of the package containing the App
   pkg_title = "ExecDashv2", # The Title of the package containing the App
-  pkg_description = "App under development for the Executive Dashboard", # The Description of the package containing the App
+  pkg_description = "App under development for the Executive Dashboard.", # The Description of the package containing the App
   author_first_name = "Starita", # Your First Name
   author_last_name = "Solutions", # Your Last Name
   author_email = "staritasolutions@gmail.com", # Your Email
   repo_url = NULL, # The URL of the GitHub Repo (optional),
-  pkg_version = "0.0.0.9000" # The Version of the package containing the App
+  pkg_version = "0.2" # The Version of the package containing the App
 )
 
 ## Set {golem} options ----
