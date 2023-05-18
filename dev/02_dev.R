@@ -20,13 +20,16 @@ attachment::att_amend_desc()
 
 ## Add modules ----
 ## Create a module infrastructure in R/
-golem::add_module(name = "name_of_module1", with_test = TRUE) # Name of the module
-golem::add_module(name = "name_of_module2", with_test = TRUE) # Name of the module
+golem::add_module(name = "date_select", with_test = TRUE) # Name of the module
+golem::add_module(name = "general_select", with_test = TRUE) # Name of the module
+golem::add_module(name = "crm_metric_select", with_test = TRUE)
+golem::add_module(name = "leads_overview_tab", with_test = TRUE) # Name of the module
 
 ## Add helper functions ----
 ## Creates fct_* and utils_*
 golem::add_fct("helpers", with_test = TRUE)
 golem::add_utils("helpers", with_test = TRUE)
+golem::add_fct("crm_conversions", with_test = TRUE)
 
 ## External resources
 ## Creates .js and .css files at inst/app/www
@@ -37,7 +40,7 @@ golem::add_sass_file("custom")
 
 ## Add internal datasets ----
 ## If you have data in your package
-usethis::use_data_raw(name = "my_dataset", open = FALSE)
+usethis::use_data_raw(name = "crm", open = FALSE)
 
 ## Tests ----
 ## Add one line by test you want to create
@@ -102,3 +105,5 @@ usethis::use_package("gt")
 usethis::use_package("ggiraph")
 usethis::use_package("scales")
 usethis::use_package("tidyverse", type = "depends")
+usethis::use_package("shinyWidgets")
+usethis::use_package("bs4Dash")

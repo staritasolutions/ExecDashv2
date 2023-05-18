@@ -1,0 +1,44 @@
+#' crm_metric_select UI Function
+#'
+#' @description A shiny Module.
+#'
+#' @param id,input,output,session Internal parameters for {shiny}.
+#'
+#' @noRd
+#'
+#' @importFrom shiny NS tagList
+mod_crm_metric_select_ui <- function(id){
+  ns <- NS(id)
+  tagList(
+    pickerInput(ns("Metric"),
+                label = "Metric",
+                choices = c("Lead" = "leads",
+                            "Prospect" = "prospect",
+                            "Tour" = "tour",
+                            "Application" = "application",
+                            "Contract" = "contract",
+                            "Enrolled" = "enrolled"),
+                multiple = FALSE,
+                selected = "Lead",
+                options = pickerOptions(actionsBox = TRUE,
+                                        liveSearch = TRUE))
+  )
+}
+
+#' crm_metric_select Server Functions
+#'
+#' @noRd
+mod_crm_metric_select_server <- function(id){
+  moduleServer( id, function(input, output, session){
+    ns <- session$ns
+    return(
+      reactive({input$Metric})
+    )
+  })
+}
+
+## To be copied in the UI
+# mod_crm_metric_select_ui("crm_metric_select_1")
+
+## To be copied in the server
+# mod_crm_metric_select_server("crm_metric_select_1")
