@@ -24,6 +24,7 @@ golem::add_module(name = "date_select", with_test = TRUE) # Name of the module
 golem::add_module(name = "general_select", with_test = TRUE) # Name of the module
 golem::add_module(name = "crm_metric_select", with_test = TRUE)
 golem::add_module(name = "leads_overview_tab", with_test = TRUE) # Name of the module
+golem::add_module(name = "conversions_table", with_test = TRUE)
 
 ## Add helper functions ----
 ## Creates fct_* and utils_*
@@ -107,3 +108,4 @@ usethis::use_package("scales")
 usethis::use_package("tidyverse", type = "depends")
 usethis::use_package("shinyWidgets")
 usethis::use_package("bs4Dash")
+usethis::use_package("gt")

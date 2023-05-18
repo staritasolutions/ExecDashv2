@@ -1,0 +1,87 @@
+#' conversions_table UI Function
+#'
+#' @description A shiny Module.
+#'
+#' @param id,input,output,session Internal parameters for {shiny}.
+#'
+#' @noRd
+#'
+#' @importFrom shiny NS tagList
+#' @importFrom gt gt_output render_gt
+#' @import tidyverse
+mod_conversions_table_ui <- function(id){
+  ns <- NS(id)
+  tagList(
+    gt_output(ns("conversions_table"))
+  )
+}
+
+#' conversions_table Server Functions
+#'
+#' @noRd
+mod_conversions_table_server <- function(id, data){
+  moduleServer(id, function(input, output, session){
+    ns <- session$ns
+    # conversions grouped by lead_type
+    L2P <- conversion(data, "L2P", "Date Submitted", "Prospective Date", FALSE)
+    P2T <- conversion(data, "P2T", "Prospective Date", "Tour Completed Date", FALSE)
+    T2A <- conversion(data, "T2A", "Tour Completed Date", "Application Date", FALSE)
+    A2E <- conversion(data, "A2E", "Application Date", "Contracted Date", FALSE)
+    E2Act <- conversion(data, "E2Act", "Contracted Date", "Enrollment Date", FALSE)
+    L2Act <- conversion(data, "L2Act", "Date Submitted", "Enrollment Date", FALSE)
+    lead_total <- reactive({
+        data() %>% group_by(lead_type) %>%
+          summarize(lead_total = n())
+    })
+
+    df_list <- reactive({
+      list(L2P(), P2T(), T2A(), A2E(), E2Act(), L2Act(), lead_total())
+    })
+
+    grouped_by_lead_type <- reactive ({
+      df_list() %>% reduce(full_join, by='lead_type') %>%
+        select(lead_type, L2P, P2T, T2A, A2E, E2Act, L2Act, lead_total)
+    })
+
+    # conversions totals
+
+    L2P_t <- conversion(data, "L2P", "Date Submitted", "Prospective Date", TRUE)
+    P2T_t <- conversion(data, "P2T", "Prospective Date", "Tour Completed Date", TRUE)
+    T2A_t <- conversion(data, "T2A", "Tour Completed Date", "Application Date", TRUE)
+    A2E_t <- conversion(data, "A2E", "Application Date", "Contracted Date", TRUE)
+    E2Act_t <- conversion(data, "E2Act", "Contracted Date", "Enrollment Date", TRUE)
+    L2Act_t <- conversion(data, "L2Act", "Date Submitted", "Enrollment Date", TRUE)
+    lead_total_t <- reactive({
+        data() %>%
+          summarize(lead_type = "Total", lead_total = n())
+      })
+
+    df_list_t <- reactive({
+      list(L2P_t(), P2T_t(), T2A_t(), A2E_t(), E2Act_t(), L2Act_t(), lead_total_t())
+    })
+
+    totals <- reactive ({
+      df_list_t() %>% reduce(full_join, by='lead_type') %>%
+        select(lead_type, L2P, P2T, T2A, A2E, E2Act, L2Act, lead_total)
+    })
+
+    conversions_table <- reactive ({
+      grouped_by_lead_type() %>% rbind(totals())
+    })
+
+    output$conversions_table <- render_gt(
+      conversions_table()
+    )
+
+  })
+
+
+}
+
+
+
+## To be copied in the UI
+# mod_conversions_table_ui("conversions_table_1")
+
+## To be copied in the server
+# mod_conversions_table_server("conversions_table_1")

@@ -6,23 +6,24 @@
 #'
 #' @noRd
 
-filter_data <- function(data, schools, date) {
+filter_data <- function(data, schools, lead_type, program, date) {
   df <- reactive ({
     data %>%
       filter(`School Name` %in% schools()) %>%
       filter(`Date Submitted` >= date$start() &
-               `Date Submitted` <= date$end())
+               `Date Submitted` <= date$end()) %>%
+  filter(lead_type %in% lead_type()) %>%
+  filter(program %in% program())
   })
-  #filter(lead_type %in% lead_type) %>%
-    #filter(program %in% program)
-  df
+  return(df)
 }
 
 conversion <- function(data, conversion, metric1, metric2, is_total = FALSE) {
   if(is_total) {
     df <- reactive ({
       data() %>%
-      summarize(!!conversion := sum(ifelse(!is.na(.data[[metric2]]), 1, 0))/sum(ifelse(!is.na(.data[[metric1]]), 1, 0)))
+      summarize(lead_type = "Total",
+                !!conversion := sum(ifelse(!is.na(.data[[metric2]]), 1, 0))/sum(ifelse(!is.na(.data[[metric1]]), 1, 0)))
     })
   }
     else {

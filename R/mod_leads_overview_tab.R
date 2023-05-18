@@ -7,17 +7,19 @@
 #' @noRd
 #'
 #' @importFrom shiny NS tagList textOutput renderText tableOutput renderTable
-#' @importFrom DT renderDT DTOutput
+#' @importFrom DT renderDataTable dataTableOutput
 #'
 mod_leads_overview_tab_ui <- function(id){
   ns <- NS(id)
   tagList(
     mod_date_select_ui(ns("date")),
     mod_general_select_ui(ns("school"), "Schools", crm, "School Name"),
+    mod_general_select_ui(ns("lead_type"), "Lead Type", crm, "lead_type"),
+    mod_general_select_ui(ns("program"), "Program", crm, "program_final"),
     mod_crm_metric_select_ui(ns("metric")),
     h3("Table"),
-    DTOutput(ns("table")),
-    textOutput(ns("text"))
+    DT::dataTableOutput(ns("table1")),
+    mod_conversions_table_ui(ns("conversions_table_1"))
   )
 }
 
@@ -25,25 +27,15 @@ mod_leads_overview_tab_ui <- function(id){
 #'
 #' @noRd
 mod_leads_overview_tab_server <- function(id){
-  moduleServer( id, function(input, output, session){
+  moduleServer(id, function(input, output, session){
     ns <- session$ns
     date1 <- mod_date_select_server("date")
-    general1 <- mod_general_select_server("school")
+    school1 <- mod_general_select_server("school")
+    lead_type1 <- mod_general_select_server("lead_type")
+    program1 <- mod_general_select_server("program")
     metric1 <- mod_crm_metric_select_server("metric")
-    output$text <- renderText({
-      text <- date1$start()
-      text})
-    df <- filter_data(crm, general1, date1)
-    L2P <- conversion(df, "L2P", "Date Submitted", "Prospective Date", TRUE)
-    output$table <- DT::renderDT({
-      DT::datatable(
-        L2P(),
-        options = list(
-          pageLength = 10,  # Number of rows per page
-          pagingType = "full_numbers"  # Pagination type (optional)
-        )
-      )
-    })
+    filtered_crm <- filter_data(crm, school1, lead_type1, program1, date1)
+    mod_conversions_table_server("conversions_table_1", filtered_crm)
   })
 }
 
