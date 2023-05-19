@@ -211,6 +211,13 @@ crm <- crm_raw %>%
     )
   ) %>%
   # Change a bunch of columns to be a date type
-  mutate(dplyr::across(`Created TIME`:`Start Date`, ~ lubridate::date(lubridate::ymd_hms(.x))))
+  mutate(dplyr::across(`Created TIME`:`Start Date`, ~ lubridate::date(lubridate::ymd_hms(.x)))) %>%
+  rename(Lead = `Date Submitted`,
+         Prospect = `Prospective Date`,
+         Tour = `Tour Completed Date`,
+         Application = `Application Date`,
+         Enrolled = `Contracted Date`,
+         Active = `Enrollment Date`)
 
 usethis::use_data(crm, overwrite = TRUE)
+

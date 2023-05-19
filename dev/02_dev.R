@@ -26,6 +26,7 @@ golem::add_module(name = "crm_metric_select", with_test = TRUE)
 golem::add_module(name = "leads_overview_tab", with_test = TRUE) # Name of the module
 golem::add_module(name = "conversions_table", with_test = TRUE)
 golem::add_module(name = "monthly_leads_graph", with_test = TRUE)
+golem::add_module(name = "quarterly_metrics_graph", with_test = TRUE)
 
 ## Add helper functions ----
 ## Creates fct_* and utils_*

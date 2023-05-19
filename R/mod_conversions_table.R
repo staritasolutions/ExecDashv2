@@ -23,12 +23,12 @@ mod_conversions_table_server <- function(id, data){
   moduleServer(id, function(input, output, session){
     ns <- session$ns
     # conversions grouped by lead_type
-    L2P <- conversion(data, "L2P", "Date Submitted", "Prospective Date", FALSE)
-    P2T <- conversion(data, "P2T", "Prospective Date", "Tour Completed Date", FALSE)
-    T2A <- conversion(data, "T2A", "Tour Completed Date", "Application Date", FALSE)
-    A2E <- conversion(data, "A2E", "Application Date", "Contracted Date", FALSE)
-    E2Act <- conversion(data, "E2Act", "Contracted Date", "Enrollment Date", FALSE)
-    L2Act <- conversion(data, "L2Act", "Date Submitted", "Enrollment Date", FALSE)
+    L2P <- conversion(data, "L2P", "Lead", "Prospect", FALSE)
+    P2T <- conversion(data, "P2T", "Prospect", "Tour", FALSE)
+    T2A <- conversion(data, "T2A", "Tour", "Application", FALSE)
+    A2E <- conversion(data, "A2E", "Application", "Enrolled", FALSE)
+    E2Act <- conversion(data, "E2Act", "Enrolled", "Active", FALSE)
+    L2Act <- conversion(data, "L2Act", "Lead", "Active", FALSE)
     lead_total <- reactive({
         data() %>% group_by(lead_type) %>%
           summarize(lead_total = n())
@@ -45,12 +45,12 @@ mod_conversions_table_server <- function(id, data){
 
     # conversions totals
 
-    L2P_t <- conversion(data, "L2P", "Date Submitted", "Prospective Date", TRUE)
-    P2T_t <- conversion(data, "P2T", "Prospective Date", "Tour Completed Date", TRUE)
-    T2A_t <- conversion(data, "T2A", "Tour Completed Date", "Application Date", TRUE)
-    A2E_t <- conversion(data, "A2E", "Application Date", "Contracted Date", TRUE)
-    E2Act_t <- conversion(data, "E2Act", "Contracted Date", "Enrollment Date", TRUE)
-    L2Act_t <- conversion(data, "L2Act", "Date Submitted", "Enrollment Date", TRUE)
+    L2P_t <- conversion(data, "L2P", "Lead", "Prospect", TRUE)
+    P2T_t <- conversion(data, "P2T", "Prospect", "Tour", TRUE)
+    T2A_t <- conversion(data, "T2A", "Tour", "Application", TRUE)
+    A2E_t <- conversion(data, "A2E", "Application", "Enrolled", TRUE)
+    E2Act_t <- conversion(data, "E2Act", "Enrolled", "Active", TRUE)
+    L2Act_t <- conversion(data, "L2Act", "Lead", "Active", TRUE)
     lead_total_t <- reactive({
         data() %>%
           summarize(lead_type = "Total", lead_total = n())

@@ -22,10 +22,10 @@ mod_monthly_leads_graph_server <- function(id, data){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     plot_data <- reactive({
-      data() %>% mutate(`Date Submitted` = floor_date(`Date Submitted`, unit = "month")) %>%
-        group_by(`Date Submitted`, lead_type) %>%
+      data() %>% mutate(Lead = floor_date(Lead, unit = "month")) %>%
+        group_by(Lead, lead_type) %>%
         summarize(leads = n()) %>%
-        rename(Date = `Date Submitted`) %>%
+        rename(Date = Lead) %>%
         ungroup() %>%
         group_by(Date) %>%
         mutate(Total = sum(leads)) %>%

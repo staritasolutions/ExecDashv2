@@ -10,10 +10,22 @@ filter_data <- function(data, schools, lead_type, program, date) {
   df <- reactive ({
     data %>%
       filter(`School Name` %in% schools()) %>%
-      filter(`Date Submitted` >= date$start() &
-               `Date Submitted` <= date$end()) %>%
+      filter(Lead >= date$start() &
+               Lead <= date$end()) %>%
   filter(lead_type %in% lead_type()) %>%
   filter(program %in% program())
+  })
+  return(df)
+}
+
+filter_data_with_metric <- function(data, schools, lead_type, program, metric, date) {
+  df <- reactive ({
+    data %>%
+      filter(`School Name` %in% schools()) %>%
+      filter(.data[[metric()]] >= date$start() &
+               .data[[metric()]] <= date$end()) %>%
+      filter(lead_type %in% lead_type()) %>%
+      filter(program %in% program())
   })
   return(df)
 }
