@@ -4,6 +4,7 @@
 #'     DO NOT REMOVE.
 #' @import shiny
 #' @import bs4Dash
+#' @import bslib
 #' @noRd
 app_ui <- function(request) {
   tagList(
@@ -11,11 +12,18 @@ app_ui <- function(request) {
     golem_add_external_resources(),
     # Your application UI logic
     dashboardPage(
-      dashboardHeader(title = "Executive Dashboard"),
-      dashboardSidebar(),
-      dashboardBody(
-      #h1("ExecDashv2"),
-      mod_leads_overview_tab_ui("leads_overview")
+      header = dashboardHeader(title = "Executive Dashboard"),
+      sidebar = dashboardSidebar(id = "sidebar"),
+      controlbar = dashboardControlbar(),
+      footer = dashboardFooter(),
+      body = dashboardBody(
+        layout_column_wrap(
+          width = 1/2,
+          card(full_screen = TRUE, card_header("Monthly Lead Breakdown"),
+               card_body(mod_leads_overview_tab_ui("leads_overview"))),
+          card(full_screen = TRUE, card_header("Conversion Metrics"),
+               card_body(p("This is the body")))
+        )
     ))
   )
 }

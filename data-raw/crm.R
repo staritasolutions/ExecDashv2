@@ -211,6 +211,6 @@ crm <- crm_raw %>%
     )
   ) %>%
   # Change a bunch of columns to be a date type
-  mutate(across(`Created TIME`:`Start Date`, ~ date(ymd_hms(.x))))
+  mutate(dplyr::across(`Created TIME`:`Start Date`, ~ lubridate::date(lubridate::ymd_hms(.x))))
 
 usethis::use_data(crm, overwrite = TRUE)
