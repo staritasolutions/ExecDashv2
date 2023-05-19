@@ -19,7 +19,8 @@ mod_leads_overview_tab_ui <- function(id){
     mod_crm_metric_select_ui(ns("metric")),
     h3("Table"),
     DT::dataTableOutput(ns("table1")),
-    mod_conversions_table_ui(ns("conversions_table_1"))
+    mod_conversions_table_ui(ns("conversions_table_1")),
+    mod_monthly_leads_graph_ui(ns("monthly_leads_graph_1"))
   )
 }
 
@@ -36,6 +37,7 @@ mod_leads_overview_tab_server <- function(id){
     metric1 <- mod_crm_metric_select_server("metric")
     filtered_crm <- filter_data(crm, school1, lead_type1, program1, date1)
     mod_conversions_table_server("conversions_table_1", filtered_crm)
+    mod_monthly_leads_graph_server("monthly_leads_graph_1", filtered_crm)
   })
 }
 
