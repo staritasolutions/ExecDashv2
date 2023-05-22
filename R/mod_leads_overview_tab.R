@@ -79,6 +79,7 @@ mod_leads_overview_tab_server <- function(id){
     program2 <- mod_general_select_server("program2")
     metrics_filtered_data <- filter_data_with_metric(crm, school2, lead_type2, program2, metric1, date2)
     mod_quarterly_metrics_graph_server("quarterly_metrics_graph_1", metrics_filtered_data, metric1)
+    mod_yearly_metrics_graph_server("yearly_metrics_graph_1", metrics_filtered_data, metric1)
 
 
   })
