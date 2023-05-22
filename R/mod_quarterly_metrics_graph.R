@@ -7,7 +7,7 @@
 #' @noRd
 #'
 #' @importFrom shiny NS tagList
-#' @importFrom lubridate quarter year
+#' @import lubridate
 mod_quarterly_metrics_graph_ui <- function(id){
   ns <- NS(id)
   tagList(

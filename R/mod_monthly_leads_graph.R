@@ -7,7 +7,8 @@
 #' @noRd
 #'
 #' @importFrom shiny NS tagList
-#' @importFrom lubridate floor_date
+#' @import lubridate
+#'
 mod_monthly_leads_graph_ui <- function(id){
   ns <- NS(id)
   tagList(

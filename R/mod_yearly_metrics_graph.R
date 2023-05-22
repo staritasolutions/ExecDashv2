@@ -7,6 +7,7 @@
 #' @noRd
 #'
 #' @importFrom shiny NS tagList
+#' @import lubridate
 mod_yearly_metrics_graph_ui <- function(id){
   ns <- NS(id)
   tagList(

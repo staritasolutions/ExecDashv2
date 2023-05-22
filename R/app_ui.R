@@ -6,27 +6,66 @@
 #' @import bs4Dash
 #' @import bslib
 #' @noRd
+
+theme_set(theme_minimal())
+
 app_ui <- function(request) {
   tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
     # Your application UI logic
     dashboardPage(
-      header = dashboardHeader(title = "Executive Dashboard"),
-      sidebar = dashboardSidebar(id = "sidebar"),
+      dark = NULL,
+      # removes light/dark mode toggle
+      header = dashboardHeader(
+        title = "Executive Dashboard",
+        fixed = FALSE,
+        skin = "light"
+      ),
+      sidebar = dashboardSidebar(
+        id = "sidebar",
+        expandOnHover = FALSE,
+        minified = FALSE,
+        collapsed = FALSE,
+
+        sidebarMenu(
+          id = "sidebarmenu",
+          flat = TRUE,
+          childIndent = TRUE,
+          sidebarHeader("CRM"),
+          menuItem("Leads Overview", tabName = "leadsoverview"),
+          menuItem("School Comparison", tabName = "schoolcomparison"),
+          menuItem("ROI", tabName = "roi"),
+          menuItem("Start Dates", tabName = "startdates")
+        )
+      ),
       controlbar = dashboardControlbar(),
       footer = dashboardFooter(),
-      body = dashboardBody(
-        layout_column_wrap(
-          width = 1/2,
-          card(full_screen = TRUE, card_header("Monthly Lead Breakdown"),
-               card_body(mod_leads_overview_tab_ui("leads_overview"))),
-          card(full_screen = TRUE, card_header("Conversion Metrics"),
-               card_body(p("This is the body")))
-        )
-    ))
+      body = dashboardBody(tabItems(
+        tabItem(tabName = "leadsoverview",
+                mod_leads_overview_tab_ui("leads_overview")
+                ),
+        tabItem(
+          tabName = "schoolcomparison",
+          card(
+            full_screen = TRUE,
+            card_header("Monthly Lead Breakdown"),
+            card_body(p("some other content")),
+            card_body(p("This is another part of the body."))
+          )
+        ),
+
+        tabItem(tabName = "roi", fluidRow("Tab3 content")),
+        tabItem(tabName = "startdates", fluidRow("Tab4 content"))
+      ))
+    )
   )
 }
+
+
+
+
+
 
 #' Add external Resources to the Application
 #'
