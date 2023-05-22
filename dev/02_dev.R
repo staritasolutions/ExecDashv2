@@ -27,7 +27,10 @@ golem::add_module(name = "leads_overview_tab", with_test = TRUE) # Name of the m
 golem::add_module(name = "conversions_table", with_test = TRUE)
 golem::add_module(name = "monthly_leads_graph", with_test = TRUE)
 golem::add_module(name = "quarterly_metrics_graph", with_test = TRUE)
-
+golem::add_module(name = "yearly_metrics_graph", with_test = TRUE)
+golem::add_module(name = "school_comp_graph", with_test = TRUE)
+golem::add_module(name = "school_comp_tab", with_test = TRUE)
+golem::add_module(name = "school_comp_table", with_test = TRUE)
 ## Add helper functions ----
 ## Creates fct_* and utils_*
 golem::add_fct("helpers", with_test = TRUE)
