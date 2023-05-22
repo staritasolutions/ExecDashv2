@@ -22,7 +22,7 @@ app_ui <- function(request) {
           card(full_screen = TRUE, card_header("Monthly Lead Breakdown"),
                card_body(mod_leads_overview_tab_ui("leads_overview"))),
           card(full_screen = TRUE, card_header("Conversion Metrics"),
-               card_body(p("This is the body")))
+               card_body(mod_school_comp_tab_ui("school_comp_tab_1")))
         )
     ))
   )
