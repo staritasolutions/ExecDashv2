@@ -48,23 +48,6 @@ conversion <- function(data, conversion, metric1, metric2, is_total = FALSE) {
   return(df)
 }
 
-school_conversion <- function(data, conversion, metric1, metric2, is_total = FALSE) {
-  if(is_total) {
-    df <- reactive ({
-      data() %>%
-        summarize(`School Name` = "Total",
-                  !!conversion := sum(ifelse(!is.na(.data[[metric2]]), 1, 0))/sum(ifelse(!is.na(.data[[metric1]]), 1, 0)))
-    })
-  }
-  else {
-    df <- reactive ({
-      data() %>%
-        group_by(`School Name`) %>%
-        summarize(!!conversion := sum(ifelse(!is.na(.data[[metric2]]), 1, 0))/sum(ifelse(!is.na(.data[[metric1]]), 1, 0)))
-    })
-  }
-  return(df)
-}
 
 
 

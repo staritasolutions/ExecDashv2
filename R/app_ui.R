@@ -41,6 +41,7 @@ app_ui <- function(request) {
       ),
       controlbar = dashboardControlbar(),
       footer = dashboardFooter(),
+<<<<<<< HEAD
       body = dashboardBody(tabItems(
         tabItem(tabName = "leadsoverview",
                 mod_leads_overview_tab_ui("leads_overview")
@@ -59,6 +60,17 @@ app_ui <- function(request) {
         tabItem(tabName = "startdates", fluidRow("Tab4 content"))
       ))
     )
+=======
+      body = dashboardBody(
+        layout_column_wrap(
+          width = 1/2,
+          card(full_screen = TRUE, card_header("Monthly Lead Breakdown"),
+               card_body(mod_leads_overview_tab_ui("leads_overview"))),
+          card(full_screen = TRUE, card_header("Conversion Metrics"),
+               card_body(p("This is the body")))
+        )
+    ))
+>>>>>>> 57225c7 (Revert "added modules for all crm school comp tab")
   )
 }
 
