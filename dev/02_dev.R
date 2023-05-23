@@ -33,6 +33,9 @@ golem::add_module(name = "school_comp_tab", with_test = TRUE)
 golem::add_module(name = "school_comp_table", with_test = TRUE)
 golem::add_module(name = "roi_tab", with_test = TRUE)
 golem::add_module(name = "roi_graph", with_test = TRUE)
+golem::add_module(name = "start_date_tab", with_test = TRUE)
+golem::add_module(name = "start_date_table", with_test = TRUE)
+
 ## Add helper functions ----
 ## Creates fct_* and utils_*
 golem::add_fct("helpers", with_test = TRUE)

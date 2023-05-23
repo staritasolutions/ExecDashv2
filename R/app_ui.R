@@ -56,7 +56,7 @@ app_ui <- function(request) {
         ),
 
         tabItem(tabName = "roi", mod_roi_tab_ui("roi")),
-        tabItem(tabName = "startdates", fluidRow("Tab4 content"))
+        tabItem(tabName = "startdates", mod_start_date_tab_ui("start_date"))
       ))
     )
   )
