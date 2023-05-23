@@ -11,6 +11,7 @@ Imports:
     ggiraph,
     golem (>= 0.4.0),
     gt,
+    pkgload,
     scales,
     shiny (>= 1.7.3),
     shinyWidgets
