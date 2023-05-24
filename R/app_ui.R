@@ -36,7 +36,9 @@ app_ui <- function(request) {
           menuItem("Leads Overview", tabName = "leadsoverview"),
           menuItem("School Comparison", tabName = "schoolcomparison"),
           menuItem("ROI", tabName = "roi"),
-          menuItem("Start Dates", tabName = "startdates")
+          menuItem("Start Dates", tabName = "startdates"),
+          sidebarHeader("Freedom"),
+          menuItem("Executive Veiw", tabName = "executiveview")
         )
       ),
       controlbar = dashboardControlbar(),
@@ -56,7 +58,8 @@ app_ui <- function(request) {
         ),
 
         tabItem(tabName = "roi", mod_roi_tab_ui("roi")),
-        tabItem(tabName = "startdates", mod_start_date_tab_ui("start_date"))
+        tabItem(tabName = "startdates", mod_start_date_tab_ui("start_date")),
+        tabItem(tabName = "executiveview", mod_freedom_executive_tab_ui("freedom_executive"))
       ))
     )
   )

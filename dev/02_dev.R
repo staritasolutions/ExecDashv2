@@ -35,6 +35,11 @@ golem::add_module(name = "roi_tab", with_test = TRUE)
 golem::add_module(name = "roi_graph", with_test = TRUE)
 golem::add_module(name = "start_date_tab", with_test = TRUE)
 golem::add_module(name = "start_date_table", with_test = TRUE)
+golem::add_module(name = "freedom_executive_tab", with_test = TRUE)
+golem::add_module(name = "attendance_by_school_graph", with_test = TRUE)
+golem::add_module(name = "hours_at_drop_graph", with_test = TRUE)
+golem::add_module(name = "active_table", with_test = TRUE)
+golem::add_module(name = "scorecard_table", with_test = TRUE)
 
 ## Add helper functions ----
 ## Creates fct_* and utils_*
@@ -52,6 +57,9 @@ golem::add_sass_file("custom")
 ## Add internal datasets ----
 ## If you have data in your package
 usethis::use_data_raw(name = "crm", open = FALSE)
+usethis::use_data_raw(name = "attendance", open = FALSE)
+usethis::use_data_raw(name = "ad_hoc", open = FALSE)
+usethis::use_data_raw(name = "scorecard", open = FALSE)
 
 ## Tests ----
 ## Add one line by test you want to create
@@ -120,3 +128,7 @@ usethis::use_package("shinyWidgets")
 usethis::use_package("bs4Dash")
 usethis::use_package("gt")
 usethis::use_package("bslib")
+usethis::use_package("scales")
+usethis::use_package("PupillometryR")
+usethis::use_package("ggpp")
+

@@ -11,4 +11,5 @@ app_server <- function(input, output, session) {
   mod_school_comp_tab_server("school_comp_tab_1")
   mod_roi_tab_server("roi")
   mod_start_date_tab_server("start_date")
+  mod_freedom_executive_tab_server("freedom_executive")
 }

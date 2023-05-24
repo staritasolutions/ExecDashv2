@@ -9,9 +9,11 @@ Imports:
     bslib,
     config (>= 0.3.1),
     ggiraph,
+    ggpp,
     golem (>= 0.4.0),
     gt,
     pkgload,
+    PupillometryR,
     scales,
     shiny (>= 1.7.3),
     shinyWidgets
