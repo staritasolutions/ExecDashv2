@@ -12,4 +12,5 @@ app_server <- function(input, output, session) {
   mod_roi_tab_server("roi")
   mod_start_date_tab_server("start_date")
   mod_freedom_executive_tab_server("freedom_executive")
+  mod_freedom_school_tab_server("freedom_school")
 }

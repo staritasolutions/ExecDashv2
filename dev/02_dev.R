@@ -40,6 +40,11 @@ golem::add_module(name = "attendance_by_school_graph", with_test = TRUE)
 golem::add_module(name = "hours_at_drop_graph", with_test = TRUE)
 golem::add_module(name = "active_table", with_test = TRUE)
 golem::add_module(name = "scorecard_table", with_test = TRUE)
+golem::add_module(name = "freedom_school_tab", with_test = TRUE)
+golem::add_module(name = "school_attendance_graphs", with_test = TRUE)
+golem::add_module(name = "ad_hoc_boxes", with_test = TRUE)
+golem::add_module(name = "ad_hoc_table", with_test = TRUE)
+
 
 ## Add helper functions ----
 ## Creates fct_* and utils_*

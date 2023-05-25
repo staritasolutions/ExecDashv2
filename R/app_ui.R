@@ -38,7 +38,8 @@ app_ui <- function(request) {
           menuItem("ROI", tabName = "roi"),
           menuItem("Start Dates", tabName = "startdates"),
           sidebarHeader("Freedom"),
-          menuItem("Executive Veiw", tabName = "executiveview")
+          menuItem("Executive View", tabName = "executiveview"),
+          menuItem("School View", tabName = "schoolview")
         )
       ),
       controlbar = dashboardControlbar(),
@@ -51,6 +52,7 @@ app_ui <- function(request) {
           tabName = "schoolcomparison",
           card(
             full_screen = TRUE,
+            mod_school_comp_tab_ui("school_comp_tab_1"),
             card_header("Monthly Lead Breakdown"),
             card_body(p("some other content")),
             card_body(p("This is another part of the body."))
@@ -59,7 +61,9 @@ app_ui <- function(request) {
 
         tabItem(tabName = "roi", mod_roi_tab_ui("roi")),
         tabItem(tabName = "startdates", mod_start_date_tab_ui("start_date")),
-        tabItem(tabName = "executiveview", mod_freedom_executive_tab_ui("freedom_executive"))
+        tabItem(tabName = "executiveview", mod_freedom_executive_tab_ui("freedom_executive")),
+        tabItem(tabName = "schoolview", mod_freedom_school_tab_ui("freedom_school"))
+
       ))
     )
   )
