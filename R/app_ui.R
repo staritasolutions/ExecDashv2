@@ -38,8 +38,11 @@ app_ui <- function(request) {
           menuItem("ROI", tabName = "roi"),
           menuItem("Start Dates", tabName = "startdates"),
           sidebarHeader("Freedom"),
-          menuItem("Executive View", tabName = "executiveview"),
-          menuItem("School View", tabName = "schoolview")
+          menuItem("Executive View", tabName = "freedomexecview"),
+          menuItem("School View", tabName = "freedomschoolview"),
+          sidebarHeader("Meevo"),
+          menuItem("Executive View", tabName = "meevoexecview"),
+          menuItem("School View", tabName = "meevoschoolview")
         )
       ),
       controlbar = dashboardControlbar(),
@@ -61,8 +64,11 @@ app_ui <- function(request) {
 
         tabItem(tabName = "roi", mod_roi_tab_ui("roi")),
         tabItem(tabName = "startdates", mod_start_date_tab_ui("start_date")),
-        tabItem(tabName = "executiveview", mod_freedom_executive_tab_ui("freedom_executive")),
-        tabItem(tabName = "schoolview", mod_freedom_school_tab_ui("freedom_school"))
+        tabItem(tabName = "freedomexecview", mod_freedom_executive_tab_ui("freedom_executive")),
+        tabItem(tabName = "freedomschoolview", mod_freedom_school_tab_ui("freedom_school")),
+        tabItem(tabName = "meevoexecview", mod_meevo_executive_tab_ui("meevo_executive")),
+        tabItem(tabName = "meevoschoolview", mod_meevo_school_tab_ui("meevo_school"))
+
 
       ))
     )

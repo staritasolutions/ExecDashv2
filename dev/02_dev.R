@@ -44,6 +44,9 @@ golem::add_module(name = "freedom_school_tab", with_test = TRUE)
 golem::add_module(name = "school_attendance_graphs", with_test = TRUE)
 golem::add_module(name = "ad_hoc_boxes", with_test = TRUE)
 golem::add_module(name = "ad_hoc_table", with_test = TRUE)
+golem::add_module(name = "meevo_executive_tab", with_test = TRUE)
+golem::add_module(name = "meevo_school_tab", with_test = TRUE)
+
 
 
 ## Add helper functions ----
