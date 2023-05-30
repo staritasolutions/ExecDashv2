@@ -42,7 +42,7 @@ mod_monthly_leads_graph_server <- function(id, data){
                              width = 15) +
         labs(y = "Leads") +
         guides(fill = guide_legend(title = "Lead Type")) +
-        theme(legend.position = "top",
+        theme(legend.position = "right",
               panel.grid.major.x = element_blank(),
               panel.grid.minor.x = element_blank()) +
         labs(x = NULL)
@@ -50,7 +50,8 @@ mod_monthly_leads_graph_server <- function(id, data){
 
     output$plot_leads <- renderGirafe({
       girafe(ggobj = p1(),
-             width = 8)
+             width = 8) %>%
+        girafe_options(opts_tooltip(zindex = 9999))
     })
   })
 }

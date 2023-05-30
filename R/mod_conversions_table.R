@@ -7,7 +7,7 @@
 #' @noRd
 #'
 #' @importFrom shiny NS tagList
-#' @importFrom gt gt_output render_gt
+#' @import gt
 #' @import tidyverse
 mod_conversions_table_ui <- function(id){
   ns <- NS(id)
@@ -29,6 +29,7 @@ mod_conversions_table_server <- function(id, data){
     A2E <- conversion(data, "A2E", "Application", "Enrolled", FALSE)
     E2Act <- conversion(data, "E2Act", "Enrolled", "Active", FALSE)
     L2Act <- conversion(data, "L2Act", "Lead", "Active", FALSE)
+
     lead_total <- reactive({
         data() %>% group_by(lead_type) %>%
           summarize(lead_total = n())
@@ -66,16 +67,25 @@ mod_conversions_table_server <- function(id, data){
     })
 
     conversions_table <- reactive ({
-      grouped_by_lead_type() %>% rbind(totals())
+      grouped_by_lead_type() %>% rbind(totals()) %>%
+        rename("Lead Type" = lead_type,
+               "Lead Total" = lead_total)
     })
 
-    output$conversions_table <- render_gt(
-      conversions_table()
-    )
+    output$conversions_table <- render_gt({
+      expr = conversions_table() %>%
+        gt() %>%
+        fmt_percent(columns = L2P:L2Act, decimals = 1) %>%
+        data_color(columns = L2P:L2Act,
+                   palette = c("red", "white", "blue")
+                   #,domain = c(0,1)
+                   ) %>%
+        fmt_number(columns = "Lead Total", decimals = 0)
 
   })
 
 
+  })
 }
 
 
