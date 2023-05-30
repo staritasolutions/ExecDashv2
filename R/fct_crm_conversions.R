@@ -100,6 +100,50 @@ PMAE_conversion <- function(data1, data2, metric, is_total = FALSE) {
   return(combined_df)
 }
 
+PMAE_school_conversion <- function(data1, data2, metric, is_total = FALSE) {
+  if(is_total) {
+    df1 <- reactive ({
+      data1() %>%
+        summarize(`School Name` = "Total",
+                  count1 = n())
+    })
+    df2 <- reactive ({
+      data2() %>%
+        summarize(`School Name` = "Total",
+                  count2 = n())
+    })
+    combined_df <- reactive({
+      df1() %>%
+        left_join(df2(), by = "School Name") %>%
+        mutate(!!metric := count2/count1) %>%
+        select(`School Name`, !!metric)
+
+    })
+  }
+  else {
+    df1 <- reactive ({
+      data1() %>%
+        group_by(`School Name`) %>%
+        summarize(count1 = n())
+    })
+    df2 <- reactive ({
+      data2() %>%
+        group_by(`School Name`) %>%
+        summarize(count2 = n())
+    })
+
+    combined_df <- reactive({
+      df1() %>%
+        left_join(df2(), by = "School Name") %>%
+        mutate(!!metric := count2/count1) %>%
+        select(`School Name`, !!metric)
+
+    })
+
+  }
+  return(combined_df)
+}
+
 
 
 

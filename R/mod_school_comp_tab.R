@@ -16,7 +16,8 @@ mod_school_comp_tab_ui <- function(id){
     mod_general_select_ui(ns("program1"), "Program", crm, "program_final"),
     mod_crm_metric_select_ui(ns("metric1")),
     mod_school_comp_graph_ui(ns("school_comp_graph_1")),
-    mod_school_comp_table_ui(ns("school_comp_table_1"))
+    mod_school_comp_table_ui(ns("school_comp_table_1")),
+    mod_school_comp_table_PMAE_ui(ns("school_comp_table_2"))
   )
 }
 
@@ -33,8 +34,9 @@ mod_school_comp_tab_server <- function(id){
     metric1 <- mod_crm_metric_select_server("metric1")
     graph_data <- filter_data_with_metric(crm, school1, lead_type1, program1, metric1, date1)
     mod_school_comp_graph_server("school_comp_graph_1", graph_data, metric1)
-    table_data <- filter_data(crm, school1, lead_type1, program1, date1)
+    table_data <- filter_data(crm, school1, lead_type1, program1, "Lead", date1)
     mod_school_comp_table_server("school_comp_table_1", table_data)
+    mod_school_comp_table_PMAE_server("school_comp_table_2", school1, lead_type1, program1, date1)
 
   })
 }
