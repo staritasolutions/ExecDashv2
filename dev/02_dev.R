@@ -25,6 +25,7 @@ golem::add_module(name = "general_select", with_test = TRUE) # Name of the modul
 golem::add_module(name = "crm_metric_select", with_test = TRUE)
 golem::add_module(name = "leads_overview_tab", with_test = TRUE) # Name of the module
 golem::add_module(name = "conversions_table", with_test = TRUE)
+golem::add_module(name = "conversions_table_PMAE", with_test = TRUE)
 golem::add_module(name = "monthly_leads_graph", with_test = TRUE)
 golem::add_module(name = "quarterly_metrics_graph", with_test = TRUE)
 golem::add_module(name = "yearly_metrics_graph", with_test = TRUE)
@@ -68,6 +69,7 @@ usethis::use_data_raw(name = "crm", open = FALSE)
 usethis::use_data_raw(name = "attendance", open = FALSE)
 usethis::use_data_raw(name = "ad_hoc", open = FALSE)
 usethis::use_data_raw(name = "scorecard", open = FALSE)
+usethis::use_data_raw(name = "meevo", open = FALSE)
 
 ## Tests ----
 ## Add one line by test you want to create

@@ -25,6 +25,7 @@ mod_leads_overview_tab_ui <- function(id){
     fluidRow(
 
       bs4Card(mod_conversions_table_ui(ns("conversions_table_1"))),
+      bs4Card(mod_conversions_table_PMAE_ui(ns("conversions_table_PMAE_1"))),
 
       bs4Card(mod_monthly_leads_graph_ui(ns("monthly_leads_graph_1")))
 
@@ -66,8 +67,10 @@ mod_leads_overview_tab_server <- function(id){
                                       school = school1,
                                       lead_type = lead_type1,
                                       program = program1,
+                                      metric = "Lead",
                                       date = date1)
     mod_conversions_table_server("conversions_table_1", leads_filtered_crm)
+    mod_conversions_table_PMAE_server("conversions_table_PMAE_1", crm, school1, lead_type1, program1, date1)
     mod_monthly_leads_graph_server("monthly_leads_graph_1", leads_filtered_crm)
 
     # Metrics over time section
