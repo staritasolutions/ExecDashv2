@@ -149,4 +149,6 @@ usethis::use_package("bslib")
 usethis::use_package("scales")
 usethis::use_package("PupillometryR")
 usethis::use_package("ggpp")
-
+usethis::use_package("DT")
+usethis::use_package("lubridate")
+usethis::use_package("spelling")
