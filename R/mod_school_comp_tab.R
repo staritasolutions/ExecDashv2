@@ -36,7 +36,7 @@ mod_school_comp_tab_server <- function(id){
     mod_school_comp_graph_server("school_comp_graph_1", graph_data, metric1)
     table_data <- filter_data(crm, school1, lead_type1, program1, "Lead", date1)
     mod_school_comp_table_server("school_comp_table_1", table_data)
-    mod_school_comp_table_PMAE_server("school_comp_table_2", school1, lead_type1, program1, date1)
+    mod_school_comp_table_PMAE_server("school_comp_table_2", crm, school1, lead_type1, program1, date1)
 
   })
 }

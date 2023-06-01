@@ -17,29 +17,34 @@ mod_school_comp_table_PMAE_ui <- function(id){
 #' school_comp_table_PMAE Server Functions
 #'
 #' @noRd
-mod_school_comp_table_PMAE_server <- function(id, school, lead_type, program, date){
+mod_school_comp_table_PMAE_server <- function(id, data, school, lead_type, program, date){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
+    lead_df <- filter_data(data, school, lead_type, program, "Lead", date)
+    prospect_df <- filter_data(data, school, lead_type, program, "Prospect", date)
+    tour_df <- filter_data(data, school, lead_type, program, "Tour", date)
+    application_df <- filter_data(data, school, lead_type, program, "Application", date)
+    enrolled_df <- filter_data(data, school, lead_type, program, "Enrolled", date)
+    active_df <- filter_data(data, school, lead_type, program, "Active", date)
 
-    L2P <- PMAE_school_conversion(filter_data(crm, school, lead_type, program, "Lead", date),
-                           filter_data(crm, school, lead_type, program, "Prospect", date),
+    L2P <- PMAE_school_conversion(lead_df,
+                                  prospect_df,
                            "L2P")
-    P2T <- PMAE_school_conversion(filter_data(crm, school, lead_type, program, "Prospect", date),
-                           filter_data(crm, school, lead_type, program, "Tour", date),
+    P2T <- PMAE_school_conversion(prospect_df,
+                                  tour_df,
                            "P2T")
-    T2A <- PMAE_school_conversion(filter_data(crm, school, lead_type, program, "Tour", date),
-                           filter_data(crm, school, lead_type, program, "Application", date),
+    T2A <- PMAE_school_conversion(tour_df,
+                                  application_df,
                            "T2A")
-    A2E <- PMAE_school_conversion(filter_data(crm, school, lead_type, program, "Application", date),
-                           filter_data(crm, school, lead_type, program, "Enrolled", date),
+    A2E <- PMAE_school_conversion(application_df,
+                                  enrolled_df,
                            "A2E")
-    E2Act <- PMAE_school_conversion(filter_data(crm, school, lead_type, program, "Enrolled", date),
-                             filter_data(crm, school, lead_type, program, "Active", date),
+    E2Act <- PMAE_school_conversion(enrolled_df,
+                                    active_df,
                              "E2Act")
-    L2Act <- PMAE_school_conversion(filter_data(crm, school, lead_type, program, "Lead", date),
-                             filter_data(crm, school, lead_type, program, "Active", date),
+    L2Act <- PMAE_school_conversion(lead_df,
+                                    active_df,
                              "L2Act")
-    lead_df <- filter_data(crm, school, lead_type, program, "Lead", date)
     lead_total <- reactive({
       lead_df() %>% group_by(`School Name`) %>%
         summarize(`Lead Total` = n())

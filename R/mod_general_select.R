@@ -8,7 +8,7 @@
 #'
 #' @importFrom shiny NS tagList
 #' @importFrom shinyWidgets pickerInput pickerOptions
-mod_general_select_ui <- function(id, title, data, metric, selected_count = NULL){
+mod_general_select_ui <- function(id, title, data, metric, selected_count = NULL, select_multiple = TRUE){
   ns <- NS(id)
   default_selected <- if (is.null(selected_count)) {
     unique(data[[metric]])
@@ -21,7 +21,7 @@ mod_general_select_ui <- function(id, title, data, metric, selected_count = NULL
       ns("list"),
       title,
       sort(unique(data[[metric]])),
-      multiple = TRUE,
+      multiple = select_multiple,
       selected = default_selected,
       options = pickerOptions(actionsBox = TRUE,
                               liveSearch = TRUE)

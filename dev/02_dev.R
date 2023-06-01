@@ -48,6 +48,13 @@ golem::add_module(name = "ad_hoc_boxes", with_test = TRUE)
 golem::add_module(name = "ad_hoc_table", with_test = TRUE)
 golem::add_module(name = "meevo_executive_tab", with_test = TRUE)
 golem::add_module(name = "meevo_school_tab", with_test = TRUE)
+golem::add_module(name = "service_sales_by_school_graph", with_test = TRUE)
+golem::add_module(name = "takehome_by_school_graph", with_test = TRUE)
+golem::add_module(name = "metrics_over_time_graph", with_test = TRUE)
+golem::add_module(name = "meevo_metrics_table", with_test = TRUE)
+golem::add_module(name = "service_sales_overtime_graph", with_test = TRUE)
+golem::add_module(name = "takehome_overtime_graph", with_test = TRUE)
+
 
 
 
