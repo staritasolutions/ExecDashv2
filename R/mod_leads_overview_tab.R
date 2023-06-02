@@ -28,6 +28,7 @@ mod_leads_overview_tab_ui <- function(id){
 
       bs4Card(mod_monthly_leads_graph_ui(ns("monthly_leads_graph_1")))
 
+
     ),
 
     fluidRow(
