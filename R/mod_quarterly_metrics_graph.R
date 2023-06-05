@@ -18,7 +18,7 @@ mod_quarterly_metrics_graph_ui <- function(id){
 #' quarterly_metrics_graph Server Functions
 #'
 #' @noRd
-mod_quarterly_metrics_graph_server <- function(id, data, metric){
+mod_quarterly_metrics_graph_server <- function(id, data, metric, maximized = FALSE){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     quarterly_df <- reactive({
@@ -40,6 +40,13 @@ mod_quarterly_metrics_graph_server <- function(id, data, metric){
               format(Metric, big.mark = ","))
         )
     })
+
+    # Plot adjustments
+    if (maximized) {
+      width <- 12
+    } else {
+      width <- 8
+    }
 
     p1_3 <- reactive({
       ggplot(
@@ -65,8 +72,9 @@ mod_quarterly_metrics_graph_server <- function(id, data, metric){
     output$plot_quarterly <- renderGirafe({
       girafe(ggobj = p1_3(),
              height = 8,
-             width = 8) %>%
-        girafe_options(opts_sizing(rescale = FALSE))
+             width = width) %>%
+        girafe_options(opts_sizing(rescale = FALSE),
+                       opts_tooltip(zindex = 9999))
     })
   })
 }

@@ -18,7 +18,7 @@ mod_yearly_metrics_graph_ui <- function(id){
 #' yearl_metrics_graph Server Functions
 #'
 #' @noRd
-mod_yearly_metrics_graph_server <- function(id, data, metric){
+mod_yearly_metrics_graph_server <- function(id, data, metric, maximized = FALSE){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     yearly_df <- reactive({
@@ -37,6 +37,13 @@ mod_yearly_metrics_graph_server <- function(id, data, metric){
                    format(Metric, big.mark = ","))
         )
     })
+
+    # Plot adjustments
+    if (maximized) {
+      width <- 12
+    } else {
+      width <- 8
+    }
 
     p1_3 <- reactive({
       ggplot(
@@ -62,8 +69,9 @@ mod_yearly_metrics_graph_server <- function(id, data, metric){
     output$plot_yearly <- renderGirafe({
       girafe(ggobj = p1_3(),
              height = 8,
-             width = 8) %>%
-        girafe_options(opts_sizing(rescale = FALSE))
+             width = width) %>%
+        girafe_options(opts_sizing(rescale = FALSE),
+                       opts_tooltip(zindex = 9999))
     })
   })
 }
