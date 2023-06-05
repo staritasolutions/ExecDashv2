@@ -8,7 +8,10 @@
 app_server <- function(input, output, session) {
   # Your application server logic
   mod_leads_overview_tab_server("leads_overview")
-  mod_school_comp_tab_server("school_comp_tab_1")
+
+  mod_school_comp_tab_server("school_comparison")
+
+  mod_roi_tab_server("roi")
 
   observe(print(input$sidebarmenu))
   observe(print(input$card_monthlyleads$maximized))

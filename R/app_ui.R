@@ -40,25 +40,23 @@ app_ui <- function(request) {
         )
       ),
       controlbar = dashboardControlbar(),
-      footer = dashboardFooter(),
+      footer = dashboardFooter(
+        right = "App by Starita Solutions LLC",
+        left = "For support email support@StaritaSolutions.com"
+      ),
       body = dashboardBody(tabItems(
         tabItem(tabName = "leadsoverview",
-
-
-
                 mod_leads_overview_tab_ui("leads_overview")
                 ),
         tabItem(
           tabName = "schoolcomparison",
-          card(
-            full_screen = TRUE,
-            card_header("Monthly Lead Breakdown"),
-            card_body(p("some other content")),
-            card_body(p("This is another part of the body."))
-          )
+          mod_school_comp_tab_ui("school_comparison")
         ),
 
-        tabItem(tabName = "roi", fluidRow("Tab3 content")),
+        tabItem(
+          tabName = "roi",
+          mod_roi_tab_ui("roi")
+          ),
         tabItem(tabName = "startdates", fluidRow("Tab4 content"))
       ))
     )

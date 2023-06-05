@@ -7,17 +7,34 @@
 #' @noRd
 #'
 #' @importFrom shiny NS tagList
+#' @import shinyWidgets
+#'
 mod_roi_tab_ui <- function(id){
   ns <- NS(id)
   tagList(
-    mod_date_select_ui(ns("date1")),
-    mod_general_select_ui(ns("school1"), "Schools", crm, "School Name"),
-    currencyInput("budget",
-                  "Input Your Monthly Budget",
-                  value = 1000,
-                  format = "NorthAmerican",
-                  align = "left"),
-    mod_roi_graph_ui(ns("roi_graph_1"))
+    bs4Card(
+      maximizable = TRUE,
+      width = 12,
+      fluidPage(
+        titlePanel(
+          "ROI Lead Calculator"
+        ),
+        sidebarLayout(
+          sidebarPanel(
+            mod_date_select_ui(ns("date1")),
+            mod_general_select_ui(ns("school1"), "Schools", crm, "School Name"),
+            currencyInput("budget",
+                          "Input Your Monthly Budget",
+                          value = 1000,
+                          format = "NorthAmerican",
+                          align = "left")
+          ),
+          mainPanel(
+            mod_roi_graph_ui(ns("roi_graph_1"))
+          )
+        )
+      )
+    )
 
   )
 }
