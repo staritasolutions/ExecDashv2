@@ -74,7 +74,7 @@ mod_school_comp_tab_server <- function(id){
     program1 <- mod_general_select_server("program1")
     metric1 <- mod_crm_metric_select_server("metric1")
 
-    table_data <- filter_data(crm, school1, lead_type1, program1, date1)
+    table_data <- filter_data(crm, school1, lead_type1, program1, "Lead", date1)
     mod_school_comp_table_server("school_comp_table", table_data)
 
     ## card_schoolcompgraph
