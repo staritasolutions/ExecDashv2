@@ -41,7 +41,8 @@ mod_conversions_table_server <- function(id, data){
 
     grouped_by_lead_type <- reactive ({
       df_list() %>% reduce(full_join, by='lead_type') %>%
-        select(lead_type, L2P, P2T, T2A, A2E, E2Act, L2Act, lead_total)
+        mutate(`% of Total` = lead_total / sum(lead_total)) %>%
+        select(lead_type, L2P, P2T, T2A, A2E, E2Act, L2Act, lead_total, `% of Total`)
     })
 
     # conversions totals
@@ -63,7 +64,8 @@ mod_conversions_table_server <- function(id, data){
 
     totals <- reactive ({
       df_list_t() %>% reduce(full_join, by='lead_type') %>%
-        select(lead_type, L2P, P2T, T2A, A2E, E2Act, L2Act, lead_total)
+        mutate(`% of Total` = 1) %>%
+        select(lead_type, L2P, P2T, T2A, A2E, E2Act, L2Act, lead_total, `% of Total`)
     })
 
     conversions_table <- reactive ({

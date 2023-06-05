@@ -25,14 +25,39 @@ golem::add_module(name = "general_select", with_test = TRUE) # Name of the modul
 golem::add_module(name = "crm_metric_select", with_test = TRUE)
 golem::add_module(name = "leads_overview_tab", with_test = TRUE) # Name of the module
 golem::add_module(name = "conversions_table", with_test = TRUE)
+golem::add_module(name = "conversions_table_PMAE", with_test = TRUE)
 golem::add_module(name = "monthly_leads_graph", with_test = TRUE)
 golem::add_module(name = "quarterly_metrics_graph", with_test = TRUE)
 golem::add_module(name = "yearly_metrics_graph", with_test = TRUE)
 golem::add_module(name = "school_comp_graph", with_test = TRUE)
 golem::add_module(name = "school_comp_tab", with_test = TRUE)
 golem::add_module(name = "school_comp_table", with_test = TRUE)
+golem::add_module(name = "school_comp_table_PMAE", with_test = TRUE)
 golem::add_module(name = "roi_tab", with_test = TRUE)
 golem::add_module(name = "roi_graph", with_test = TRUE)
+golem::add_module(name = "start_date_tab", with_test = TRUE)
+golem::add_module(name = "start_date_table", with_test = TRUE)
+golem::add_module(name = "freedom_executive_tab", with_test = TRUE)
+golem::add_module(name = "attendance_by_school_graph", with_test = TRUE)
+golem::add_module(name = "hours_at_drop_graph", with_test = TRUE)
+golem::add_module(name = "active_table", with_test = TRUE)
+golem::add_module(name = "scorecard_table", with_test = TRUE)
+golem::add_module(name = "freedom_school_tab", with_test = TRUE)
+golem::add_module(name = "school_attendance_graphs", with_test = TRUE)
+golem::add_module(name = "ad_hoc_boxes", with_test = TRUE)
+golem::add_module(name = "ad_hoc_table", with_test = TRUE)
+golem::add_module(name = "meevo_executive_tab", with_test = TRUE)
+golem::add_module(name = "meevo_school_tab", with_test = TRUE)
+golem::add_module(name = "service_sales_by_school_graph", with_test = TRUE)
+golem::add_module(name = "takehome_by_school_graph", with_test = TRUE)
+golem::add_module(name = "metrics_over_time_graph", with_test = TRUE)
+golem::add_module(name = "meevo_metrics_table", with_test = TRUE)
+golem::add_module(name = "service_sales_overtime_graph", with_test = TRUE)
+golem::add_module(name = "takehome_overtime_graph", with_test = TRUE)
+
+
+
+
 ## Add helper functions ----
 ## Creates fct_* and utils_*
 golem::add_fct("helpers", with_test = TRUE)
@@ -49,6 +74,10 @@ golem::add_sass_file("custom")
 ## Add internal datasets ----
 ## If you have data in your package
 usethis::use_data_raw(name = "crm", open = FALSE)
+usethis::use_data_raw(name = "attendance", open = FALSE)
+usethis::use_data_raw(name = "ad_hoc", open = FALSE)
+usethis::use_data_raw(name = "scorecard", open = FALSE)
+usethis::use_data_raw(name = "meevo", open = FALSE)
 
 ## Tests ----
 ## Add one line by test you want to create
@@ -117,3 +146,9 @@ usethis::use_package("shinyWidgets")
 usethis::use_package("bs4Dash")
 usethis::use_package("gt")
 usethis::use_package("bslib")
+usethis::use_package("scales")
+usethis::use_package("PupillometryR")
+usethis::use_package("ggpp")
+usethis::use_package("DT")
+usethis::use_package("lubridate")
+usethis::use_package("spelling")

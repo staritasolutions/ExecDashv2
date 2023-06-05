@@ -45,7 +45,23 @@ mod_roi_tab_ui <- function(id){
 mod_roi_tab_server <- function(id){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
-    mod_roi_graph_server("roi_graph_1")
+    date1 <- mod_date_select_server("date1")
+    school1 <- mod_general_select_server("school1")
+    roi_data <- reactive ({
+      crm %>%
+        filter(`School Name` %in% school1()) %>%
+        mutate(Date = floor_date(Lead, "month")) %>%
+        filter(Date >= date1$start() &
+                 Date <= date1$end()) %>%
+        group_by(Date) %>%
+        summarize(`Cost / Lead` = as.numeric(input$budget)/n()) %>%
+        ungroup() %>%
+        mutate(tooltip =
+                 paste0(month(Date, label = TRUE), " ", year(Date), "\n",
+                        "$", round(`Cost / Lead`, 2)))
+    })
+
+    mod_roi_graph_server("roi_graph_1", roi_data)
 
   })
 }

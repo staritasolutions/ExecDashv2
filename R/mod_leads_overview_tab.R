@@ -129,6 +129,7 @@ mod_leads_overview_tab_server <- function(id){
                                       school = school1,
                                       lead_type = lead_type1,
                                       program = program1,
+                                      metric = "Lead",
                                       date = date1)
 
     # Second Row
@@ -262,6 +263,7 @@ mod_leads_overview_tab_server <- function(id){
     ### Server
     mod_yearly_metrics_graph_server("yearly_metrics_graph_max", metrics_filtered_data, metric1, maximized = TRUE)
     mod_yearly_metrics_graph_server("yearly_metrics_graph_min", metrics_filtered_data, metric1, maximized = FALSE)
+
 
 
 

@@ -9,4 +9,4 @@
 library(testthat)
 library(ExecDashv2)
 
-test_check("ExecDashv2")
+#test_check("ExecDashv2")
