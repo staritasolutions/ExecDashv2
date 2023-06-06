@@ -72,7 +72,7 @@ mod_scorecard_table_server <- function(id, data, school, program, date){
           ))
         )) %>%
         formatStyle(columns = c(2:6),
-                    backgroundColor = "#4C86A825"
+                    backgroundColor = "#cdeefd"
                     #border = 'solid #4C86A8'
         ) %>%
         formatStyle(

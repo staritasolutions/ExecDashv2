@@ -77,7 +77,7 @@ mod_conversions_table_server <- function(id, data){
     output$conversions_table <- render_gt({
       expr = conversions_table() %>%
         gt() %>%
-        fmt_percent(columns = L2P:L2Act, decimals = 1) %>%
+        fmt_percent(columns = c(L2P:L2Act, `% of Total`), decimals = 0) %>%
         data_color(columns = L2P:L2Act,
                    palette = c("red", "white", "blue")
                    #,domain = c(0,1)

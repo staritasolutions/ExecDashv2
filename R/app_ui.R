@@ -51,24 +51,42 @@ app_ui <- function(request) {
         left = "For support email support@StaritaSolutions.com"
       ),
       body = dashboardBody(tabItems(
-        tabItem(tabName = "leadsoverview",
-                mod_leads_overview_tab_ui("leads_overview")
+        tabItem(
+          tabName = "leadsoverview",
+          mod_leads_overview_tab_ui("leads_overview")
                 ),
         tabItem(
           tabName = "schoolcomparison",
           mod_school_comp_tab_ui("school_comparison")
         ),
-
         tabItem(
           tabName = "roi",
           mod_roi_tab_ui("roi")
           ),
-        tabItem(tabName = "startdates", fluidRow("Tab4 content")),
-        tabItem(tabName = "startdates", mod_start_date_tab_ui("start_date")),
-        tabItem(tabName = "freedomexecview", mod_freedom_executive_tab_ui("freedom_executive")),
-        tabItem(tabName = "freedomschoolview", mod_freedom_school_tab_ui("freedom_school")),
-        tabItem(tabName = "meevoexecview", mod_meevo_executive_tab_ui("meevo_executive")),
-        tabItem(tabName = "meevoschoolview", mod_meevo_school_tab_ui("meevo_school"))
+        tabItem(
+          tabName = "startdates",
+          fluidRow("Coming soon!")
+          ),
+        tabItem(
+          tabName = "startdates",
+          mod_start_date_tab_ui("start_date")
+          ),
+        tabItem(
+          tabName = "freedomexecview",
+          mod_freedom_executive_tab_ui("freedom_executive")
+          ),
+        tabItem(
+          tabName = "freedomschoolview",
+          mod_freedom_school_tab_ui("freedom_school")
+          ),
+        tabItem(
+          tabName = "meevoexecview",
+          mod_meevo_executive_tab_ui("meevo_executive")
+          ),
+        tabItem(
+          tabName = "meevoschoolview",
+          mod_meevo_school_tab_ui("meevo_school")
+          )
       ))
     )
   )

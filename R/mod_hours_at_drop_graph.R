@@ -11,18 +11,15 @@
 mod_hours_at_drop_graph_ui <- function(id){
   ns <- NS(id)
   tagList(
-    fluidRow(column(width = 6,
-                    girafeOutput(ns("plot_hours_at_drop"))),
-             column(width = 6,
-                    girafeOutput(ns("plot_hours_at_drop2"))))
+    girafeOutput(ns("plot_hours_at_drop2"))
   )
 }
 
 #' hours_at_drop_graph Server Functions
 #'
 #' @noRd
-mod_hours_at_drop_graph_server <- function(id, data, program, date){
-  moduleServer( id, function(input, output, session){
+mod_hours_at_drop_graph_server <- function(id, data, program, date, maximized = FALSE){
+  moduleServer(id, function(input, output, session){
     ns <- session$ns
 
     filtered_data <- reactive ({
@@ -100,22 +97,37 @@ mod_hours_at_drop_graph_server <- function(id, data, program, date){
 
 # new rain cloud plot -----------------------------------------------------
 
+    # Plot adjustments
+    if (maximized) {
+      width <- 8
+      height <- 8
+    } else {
+      width <- 6
+      height <- 10
+    }
 
     p3 <- reactive({
-      ggplot(filtered_data(),
-             aes(x = bus_name,
-                 y = `Tot hrs`,
-                 fill = bus_name)) +
+      filtered_data() %>%
+        mutate(tooltip = round(`Tot hrs`)) %>%
+        ggplot(aes(x = bus_name,
+                   y = `Tot hrs`,
+                   fill = bus_name)) +
         PupillometryR::geom_flat_violin(position = position_nudge(x = 0.20)) +
-        geom_point(aes(color = bus_name),
+        geom_point_interactive(aes(color = bus_name, tooltip = tooltip),
                    alpha = .5,
+                   size = 2.5,
                    position = position_jitter(width = 0.1, height = 0)) +
         coord_flip() +
-        labs(title = "Hours at Drop Distribution")
+        labs(y = "Hours at Drop",
+             x = NULL) +
+        theme(legend.position = "none",
+              text = element_text(size = 20))
     })
     output$plot_hours_at_drop2 <- renderGirafe({
       girafe(ggobj = p3(),
-             width = 5)
+             width = width,
+             height = height) %>%
+        girafe_options(opts_tooltip(zindex = 9999))
     })
 
 
