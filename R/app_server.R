@@ -26,4 +26,5 @@ app_server <- function(input, output, session) {
   mod_freedom_school_tab_server("freedom_school")
   mod_meevo_executive_tab_server("meevo_executive")
   mod_meevo_school_tab_server("meevo_school")
+  mod_learning_leader_tab_server("learning_leader")
 }
