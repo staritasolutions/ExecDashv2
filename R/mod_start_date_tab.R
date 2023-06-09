@@ -10,9 +10,34 @@
 mod_start_date_tab_ui <- function(id){
   ns <- NS(id)
   tagList(
-    mod_date_select_ui(ns("date1"), start = Sys.Date(), end = Sys.Date() + 183),
-    mod_general_select_ui(ns("school1"), "Schools", crm, "School Name"),
-    mod_start_date_table_ui(ns("start_date_table_1"))
+
+    fluidRow(
+      bs4Card(
+        title = "CRM - Start Dates",
+        id = "card_startdateinfo",
+        width = 12,
+        "Welcome to the CRM Start Dates tab. Here you will find information on the
+        start dates your schools have, filterable by date and school.",
+        fluidRow(
+          column(6,
+                 mod_date_select_ui(ns("date1"), start = Sys.Date(), end = Sys.Date() + 183)
+                 ),
+          column(6,
+                 mod_general_select_ui(ns("school1"), "Schools", crm, "School Name")
+                 )
+        )
+      )
+    ),
+
+    fluidRow(
+      bs4Card(
+        title = "Start Date Table",
+        id = "card_startdatetable",
+        width = 12,
+        maximizable = TRUE,
+        mod_start_date_table_ui(ns("start_date_table_1"))
+      )
+    )
   )
 }
 

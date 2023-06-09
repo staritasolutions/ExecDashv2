@@ -48,7 +48,8 @@ app_ui <- function(request) {
       controlbar = dashboardControlbar(),
       footer = dashboardFooter(
         right = "App by Starita Solutions LLC",
-        left = "For support email support@StaritaSolutions.com"
+        left = "For support email support@StaritaSolutions.com",
+        fixed = FALSE
       ),
       body = dashboardBody(tabItems(
         tabItem(
@@ -65,7 +66,7 @@ app_ui <- function(request) {
           ),
         tabItem(
           tabName = "startdates",
-          fluidRow("Coming soon!")
+          mod_start_date_tab_ui("startdates")
           ),
         tabItem(
           tabName = "startdates",

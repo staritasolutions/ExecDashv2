@@ -79,7 +79,7 @@ mod_conversions_table_server <- function(id, data){
         gt() %>%
         fmt_percent(columns = c(L2P:L2Act, `% of Total`), decimals = 0) %>%
         data_color(columns = L2P:L2Act,
-                   palette = c("red", "white", "blue")
+                   palette = c("#F9ACB1", "white", "#96C4DB")
                    #,domain = c(0,1)
                    ) %>%
         fmt_number(columns = "Lead Total", decimals = 0)

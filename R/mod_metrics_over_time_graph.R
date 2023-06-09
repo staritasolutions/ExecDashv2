@@ -54,12 +54,13 @@ mod_metrics_over_time_graph_server <- function(id, data, school, date, metric){
         geom_point_interactive(aes(tooltip = tooltip, color = School),
                                size = 4) +
         labs(x = "Date") +
-        scale_y_continuous(limits=(c(0,NA)))
+        scale_y_continuous(limits=(c(0,NA))) +
+        theme(legend.position = "top")
     })
 
     output$plot_meevo_metrics<- renderGirafe({
       girafe(ggobj = p1(),
-             width = 16)
+             width = 8)
     })
 
   })

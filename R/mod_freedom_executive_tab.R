@@ -40,6 +40,7 @@ mod_freedom_executive_tab_ui <- function(id){
         id = ns("card_schoolattend"),
         width = 4,
         maximizable = TRUE,
+        height = 550,
         uiOutput(ns("graph_schoolattend"))
       ),
       bs4Card(
@@ -47,6 +48,7 @@ mod_freedom_executive_tab_ui <- function(id){
         id = ns("card_hoursatdrop"),
         width = 4,
         maximizable = TRUE,
+        height = 550,
         uiOutput(ns("graph_hoursatdrop"))
       ),
       bs4Card(
@@ -54,6 +56,7 @@ mod_freedom_executive_tab_ui <- function(id){
         id = "card_currenttable",
         width = 4,
         maximizable = TRUE,
+        height = 550,
         mod_active_table_ui(ns("active_table_1"))
       )
     ),

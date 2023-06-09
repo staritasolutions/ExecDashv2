@@ -42,7 +42,7 @@ mod_meevo_metrics_table_server <- function(id, data, school, date, metric){
         cols_align(align = "center", columns = 1:2) %>%
         tab_options(column_labels.padding.horizontal = px(30),
                     column_labels.hidden = FALSE) %>%
-        tab_header(title = "Date Range Totals")
+        tab_header(title = "Date Range Average")
     )
 
   })

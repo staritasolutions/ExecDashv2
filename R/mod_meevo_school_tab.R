@@ -10,10 +10,48 @@
 mod_meevo_school_tab_ui <- function(id){
   ns <- NS(id)
   tagList(
-    mod_general_select_ui(ns("school"), "Schools", meevo, "School", 1, FALSE),
-    mod_date_select_ui(ns("date1"), start = "2023-01-01"),
-    mod_service_sales_overtime_graph_ui(ns("service_sales_overtime_graph_1")),
-    mod_takehome_overtime_graph_ui(ns("takehome_overtime_graph_1"))
+
+    fluidRow(
+      bs4Card(
+        title = "Meevo - School View",
+        id = "card_meevoschool",
+        width = 12,
+        maximizable = FALSE,
+        "Welcome to the Meevo School View tab. Here you will be able to select the
+        school you are interested in and view the Meevo metrics and data relevant
+        to each individual school. The School and Date Range filters in this box
+        will adjust the graphs below. For comparison in each of the graphs, the darker blue bar
+        in the foreground represents the more recent month, while the lighter blue
+        bar represents the data from the year prior to the dark blue bar.",
+        fluidRow(
+          column(
+            6,
+            mod_general_select_ui(ns("school"), "Schools", meevo, "School", 1, FALSE)
+          ),
+          column(
+            6,
+            mod_date_select_ui(ns("date1"), start = "2023-01-01")
+          )
+        )
+      )
+    ),
+
+    fluidRow(
+      bs4Card(
+        title = "Monthly Service Sales",
+        id = "card_servicesales",
+        width = 6,
+        maximizable = FALSE,
+        mod_service_sales_overtime_graph_ui(ns("service_sales_overtime_graph_1"))
+      ),
+      bs4Card(
+        title = "Monthly Take Home",
+        id = "card_takehome",
+        width = 6,
+        maximizable = FALSE,
+        mod_takehome_overtime_graph_ui(ns("takehome_overtime_graph_1"))
+      )
+    )
 
   )
 }
