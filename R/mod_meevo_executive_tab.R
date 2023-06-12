@@ -10,25 +10,93 @@
 mod_meevo_executive_tab_ui <- function(id){
   ns <- NS(id)
   tagList(
-    mod_date_select_ui(ns("date1")),
-    mod_service_sales_by_school_graph_ui(ns("service_sales_by_school_graph_1")),
-    mod_takehome_by_school_graph_ui(ns("takehome_by_school_graph_1")),
-    pickerInput(ns("metric"),
-                label = "Metric",
-                choices = c("Guests/FP",
-                            "Avg Total Ticket",
-                            "Take Home $/Guest",
-                            "Bottles/Guest",
-                            "Service $/Guest"),
-                multiple = FALSE,
-                selected = "Guests/FP",
-                options = pickerOptions(actionsBox = TRUE,
-                                        liveSearch = TRUE)),
-    mod_general_select_ui(ns("school"), "Schools", meevo, "School", 3),
-    mod_date_select_ui(ns("date2")),
-    mod_metrics_over_time_graph_ui(ns("metrics_over_time_graph_1")),
-    mod_meevo_metrics_table_ui(ns("meevo_metrics_table_1"))
 
+    fluidRow(
+      bs4Card(
+        title = "Meevo - Executive View",
+        id = "card_execview",
+        width = 12,
+        fluidRow(
+          column(
+            4,
+            mod_date_select_ui(ns("date1"))
+          ),
+          column(
+            8,
+            "Welcome to the Meevo Executive View. Here you will find information
+            about all your schools in one place. The Date Range filter in this box
+            will adjust all the graphs and tables in this tab."
+          )
+        )
+      )
+    ),
+
+    fluidRow(
+      bs4Card(
+        title = "Service Sales by School",
+        id = "card_servsales",
+        width = 6,
+        maximizable = FALSE,
+        mod_service_sales_by_school_graph_ui(ns("service_sales_by_school_graph_1"))
+      ),
+      bs4Card(
+        title = "Take Home Sales by School",
+        id = "card_takehomesales",
+        width = 6,
+        maximizable = FALSE,
+        mod_takehome_by_school_graph_ui(ns("takehome_by_school_graph_1"))
+      )
+    ),
+
+    fluidRow(
+      bs4Card(
+        title = "Metrics Over Time Information",
+        id = "card_metricsinfo",
+        width = 12,
+        maximizable = FALSE,
+        fluidRow(
+          "These are additional controls for the Metrics Over Time Graph and the
+            Date Range Totals Table. Use these filters in addition to the Date Range
+            filter in the card at the top of the page to adjust the graph and table
+            below.",
+          column(
+            6,
+            mod_general_select_ui(ns("school"), "Schools", meevo, "School", 3)
+          ),
+          column(
+            6,
+            pickerInput(ns("metric"),
+                        label = "Metric",
+                        choices = c("Guests/FP",
+                                    "Avg Total Ticket",
+                                    "Take Home $/Guest",
+                                    "Bottles/Guest",
+                                    "Service $/Guest"),
+                        multiple = FALSE,
+                        selected = "Guests/FP",
+                        options = pickerOptions(actionsBox = TRUE,
+                                                liveSearch = TRUE))
+          )
+        )
+      )
+    ),
+
+    fluidRow(
+      bs4Card(
+        title = "Metrics Over Time Graph",
+        id = "card_metricsovertime",
+        width = 9,
+        maximizable = FALSE,
+        mod_metrics_over_time_graph_ui(ns("metrics_over_time_graph_1"))
+      ),
+      bs4Card(
+        title = "Date Range Summary",
+        id = "card_summarytable",
+        width = 3,
+        maximizable = FALSE,
+        mod_meevo_metrics_table_ui(ns("meevo_metrics_table_1"))
+      )
+    )
   )
 }
 
@@ -52,9 +120,8 @@ mod_meevo_executive_tab_server <- function(id){
     mod_service_sales_by_school_graph_server("service_sales_by_school_graph_1", filtered_meevo)
     mod_takehome_by_school_graph_server("takehome_by_school_graph_1", filtered_meevo)
     school <- mod_general_select_server("school")
-    date2 <- mod_date_select_server("date2")
-    mod_metrics_over_time_graph_server("metrics_over_time_graph_1", meevo, school, date2, reactive({input$metric}))
-    mod_meevo_metrics_table_server("meevo_metrics_table_1", meevo, school, date2, reactive({input$metric}))
+    mod_metrics_over_time_graph_server("metrics_over_time_graph_1", meevo, school, date1, reactive({input$metric}))
+    mod_meevo_metrics_table_server("meevo_metrics_table_1", meevo, school, date1, reactive({input$metric}))
 
 
 

@@ -10,22 +10,77 @@
 mod_freedom_school_tab_ui <- function(id){
   ns <- NS(id)
   tagList(
-    mod_general_select_ui(ns("school1"), "School", attendance, "bus_name"),
-    mod_general_select_ui(ns("program1"), "Program", attendance, "revised_program"),
-    mod_date_select_ui(ns("date1"), start = Sys.Date()-35),
-    prettyRadioButtons(ns("attendance_graph_choice"),
-                       "Select Graph",
-                       choices = c("Attendance", "Attendance %"),
-                       selected = "Attendance",
-                       shape = "curve",
-                       bigger = TRUE,
-                       animation = "smooth"
-    ),
-    mod_school_attendance_graphs_ui(ns("school_attendance_graphs_1")),
-    mod_general_select_ui(ns("program2"), "Program", ad_hoc, "revised_program"),
-    mod_ad_hoc_boxes_ui(ns("ad_hoc_boxes_1")),
-    mod_ad_hoc_table_ui(ns("ad_hoc_table_1"))
 
+    fluidRow(
+      bs4Card(
+        title = "Freedom - School View",
+        id = "card_schoolviewinfo",
+        width = 12,
+        "Welcome to the Freedom School View tab. Here you will find information
+        about individual schools and students within each school. The controls in
+        this card modify the attendance graph.",
+        fluidRow(
+          column(3,
+                 mod_date_select_ui(ns("date1"), start = Sys.Date() - 35)
+                 ),
+          column(3,
+                 mod_general_select_ui(ns("school1"), "School", attendance, "bus_name")
+                 ),
+          column(3,
+                 mod_general_select_ui(ns("program1"), "Program", attendance, "revised_program")
+                 ),
+          column(3,
+                 prettyRadioButtons(ns("attendance_graph_choice"),
+                                    "Select Graph",
+                                    choices = c("Attendance", "Attendance %"),
+                                    selected = "Attendance",
+                                    shape = "curve",
+                                    bigger = TRUE,
+                                    animation = "smooth"
+                 )
+                 )
+
+        )
+      )
+    ),
+
+    fluidRow(
+      bs4Card(
+        title = "Attendance",
+        id = "card_attendance",
+        width = 12,
+        mod_school_attendance_graphs_ui(ns("school_attendance_graphs_1"))
+      )
+    ),
+
+    fluidRow(bs4Card(
+      title = "Adhoc Table Information",
+      id = "card_adhocinfo",
+      width = 12,
+      fluidRow(
+        column(
+          4,
+          mod_general_select_ui(ns("program2"), "Program", ad_hoc, "revised_program")
+        ),
+        column(
+          8,
+          "This card contains information about the adhoc table and the boxes above
+          the adhoc table. The program filter on the left helps filter down the
+          adhoc table and the info boxes."
+        )
+      )
+    )),
+
+    fluidRow(
+      bs4Card(
+        title = "Adhoc Table",
+        id = "card_adhoc",
+        width = 12,
+        maximizable = TRUE,
+        mod_ad_hoc_boxes_ui(ns("ad_hoc_boxes_1")),
+        mod_ad_hoc_table_ui(ns("ad_hoc_table_1"))
+      )
+    )
 
   )
 }

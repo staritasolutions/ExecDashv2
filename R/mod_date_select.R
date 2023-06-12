@@ -7,7 +7,7 @@
 #' @noRd
 #'
 #' @importFrom shiny NS tagList
-mod_date_select_ui <- function(id, start = "2022-01-01", end = NULL){
+mod_date_select_ui <- function(id, start = floor_date(Sys.Date(), unit = "year"), end = NULL){
   ns <- NS(id)
   tagList(
     dateRangeInput(ns("date"),

@@ -10,9 +10,23 @@
 mod_ad_hoc_boxes_ui <- function(id){
   ns <- NS(id)
   tagList(
-    bs4InfoBoxOutput(ns("low_grades")),
-    bs4InfoBoxOutput(ns("low_attendance")),
-    bs4InfoBoxOutput(ns("balance")),
+    fluidRow(
+      column(4,
+             bs4InfoBoxOutput(ns("low_grades"),
+                              width = 12)
+             ),
+      column(4,
+             bs4InfoBoxOutput(ns("low_attendance"),
+                              width = 12)
+      ),
+      column(4,
+             bs4InfoBoxOutput(ns("balance"),
+                              width = 12)
+      ),
+    )
+
+
+
 
 
   )

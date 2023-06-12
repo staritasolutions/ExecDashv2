@@ -19,7 +19,7 @@ mod_roi_graph_ui <- function(id){
 #'
 #' @noRd
 mod_roi_graph_server <- function(id, data){
-  moduleServer( id, function(input, output, session){
+  moduleServer(id, function(input, output, session){
     ns <- session$ns
 
     p3 <- reactive({
@@ -35,7 +35,8 @@ mod_roi_graph_server <- function(id, data){
     output$plot_roi <- renderGirafe({
       girafe(ggobj = p3(),
              height = 5,
-             width = 10)
+             width = 10) %>%
+        girafe_options(opts_tooltip(zindex = 9999))
     })
 
   })

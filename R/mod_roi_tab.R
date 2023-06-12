@@ -23,7 +23,7 @@ mod_roi_tab_ui <- function(id){
           sidebarPanel(
             mod_date_select_ui(ns("date1")),
             mod_general_select_ui(ns("school1"), "Schools", crm, "School Name"),
-            currencyInput("budget",
+            shinyWidgets::currencyInput(ns("budget"),
                           "Input Your Monthly Budget",
                           value = 1000,
                           format = "NorthAmerican",
