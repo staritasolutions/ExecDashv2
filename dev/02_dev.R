@@ -54,6 +54,10 @@ golem::add_module(name = "metrics_over_time_graph", with_test = TRUE)
 golem::add_module(name = "meevo_metrics_table", with_test = TRUE)
 golem::add_module(name = "service_sales_overtime_graph", with_test = TRUE)
 golem::add_module(name = "takehome_overtime_graph", with_test = TRUE)
+golem::add_module(name = "learning_leader_tab", with_test = TRUE)
+golem::add_module(name = "ll_rebooking_tab", with_test = TRUE)
+golem::add_module(name = "ll_takehome_tab", with_test = TRUE)
+golem::add_module(name = "ll_services_tab", with_test = TRUE)
 
 
 
@@ -78,6 +82,7 @@ usethis::use_data_raw(name = "attendance", open = FALSE)
 usethis::use_data_raw(name = "ad_hoc", open = FALSE)
 usethis::use_data_raw(name = "scorecard", open = FALSE)
 usethis::use_data_raw(name = "meevo", open = FALSE)
+usethis::use_data_raw(name = "learning_leader", open = FALSE)
 
 ## Tests ----
 ## Add one line by test you want to create

@@ -18,6 +18,7 @@ Imports:
     golem (>= 0.4.0),
     gt,
     lubridate,
+    pkgload,
     PupillometryR,
     scales,
     shiny (>= 1.7.3),
