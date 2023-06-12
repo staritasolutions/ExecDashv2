@@ -55,6 +55,9 @@ golem::add_module(name = "meevo_metrics_table", with_test = TRUE)
 golem::add_module(name = "service_sales_overtime_graph", with_test = TRUE)
 golem::add_module(name = "takehome_overtime_graph", with_test = TRUE)
 golem::add_module(name = "learning_leader_tab", with_test = TRUE)
+golem::add_module(name = "ll_rebooking_tab", with_test = TRUE)
+golem::add_module(name = "ll_takehome_tab", with_test = TRUE)
+golem::add_module(name = "ll_services_tab", with_test = TRUE)
 
 
 

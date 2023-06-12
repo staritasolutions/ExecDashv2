@@ -44,7 +44,10 @@ app_ui <- function(request) {
           menuItem("Executive View", tabName = "meevoexecview"),
           menuItem("School View", tabName = "meevoschoolview"),
           sidebarHeader("Learning Leader"),
-          menuItem("Learning Leader", tabName = "learningleader")
+          menuItem("Rebooking", tabName = "llrebooking"),
+          menuItem("Take Home", tabName = "lltakehome"),
+          menuItem("Services", tabName = "llservices")
+
         )
       ),
       controlbar = dashboardControlbar(),
@@ -71,7 +74,11 @@ app_ui <- function(request) {
         tabItem(tabName = "freedomschoolview", mod_freedom_school_tab_ui("freedom_school")),
         tabItem(tabName = "meevoexecview", mod_meevo_executive_tab_ui("meevo_executive")),
         tabItem(tabName = "meevoschoolview", mod_meevo_school_tab_ui("meevo_school")),
-        tabItem(tabName = "learningleader", mod_learning_leader_tab_ui("learning_leader"))
+        tabItem(tabName = "llrebooking", mod_ll_rebooking_tab_ui("rebooking")),
+        tabItem(tabName = "lltakehome", mod_ll_takehome_tab_ui("takehome")),
+        tabItem(tabName = "llservices", mod_ll_services_tab_ui("services"))
+
+
       ))
     )
   )
