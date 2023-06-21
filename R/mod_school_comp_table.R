@@ -49,6 +49,7 @@ mod_school_comp_table_server <- function(id, data){
                 rownames = FALSE,
                 options = list(
                   pageLength = 15,
+                  dom = "t",
                   columnDefs = list(list(
                     className = 'dt-center',
                     targets = 1:4

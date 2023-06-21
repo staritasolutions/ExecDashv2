@@ -38,10 +38,10 @@ mod_monthly_leads_graph_server <- function(id, data, maximized = FALSE){
 
     # Plot adjustments
     if (maximized) {
-      width <- 12
+      width <- 14
       legend_pos <- "right"
     } else {
-      width <- 8
+      width <- 6
       legend_pos <- "none"
     }
 
@@ -51,7 +51,7 @@ mod_monthly_leads_graph_server <- function(id, data, maximized = FALSE){
         geom_col_interactive(aes(fill = lead_type,
                                  tooltip = tooltip),
                              width = 15) +
-        labs(y = "Leads") +
+        labs(y = NULL) +
         guides(fill = guide_legend(title = "Lead Type")) +
         theme(legend.position = legend_pos,
               panel.grid.major.x = element_blank(),

@@ -9,41 +9,55 @@
 #' @importFrom shiny NS tagList textOutput renderText tableOutput renderTable
 #' @importFrom DT renderDataTable dataTableOutput
 #' @import ggiraph
+#' @import lubridate
 #'
 mod_leads_overview_tab_ui <- function(id) {
   ns <- NS(id)
+
+  # This stopped working for some reason
+  # custom_start <- ifelse(month(Sys.Date()) < 7,
+  #                        Sys.Date() - months(6),
+  #                        floor_date(Sys.Date(), unit = "year"))
+
+  if(month(Sys.Date()) < 7) {
+    custom_start <- Sys.Date() - months(6)
+  } else {
+    custom_start <- floor_date(Sys.Date(), unit = "year")
+  }
+
   tagList(
     fluidRow(
-      bs4Card(title = "CRM - Leads Overview",
+      bs4Card(title = strong("CRM - Leads Overview", style = "font-size:25px;"),
               id = "card_leadsoverview",
               width = 12,
               "Welcome to the Leads Overview page. This box contains the controls
               needed for the graphs and table below. Some of the boxes show additional
               information or details when maximized.",
               fluidRow(
-                column(6, mod_date_select_ui(ns("date1"))),
-                column(6, mod_general_select_ui(ns("school1"), "Schools", crm, "School Name"))
+                column(3, mod_date_select_ui(ns("date1"),
+                                             start = custom_start,
+                                             end = Sys.Date())),
+                column(3, mod_general_select_ui(ns("school1"), "Schools", crm, "School Name")),
+                column(3, mod_general_select_ui(ns("lead_type1"), "Lead Type", crm, "lead_type")),
+                column(3, mod_general_select_ui(ns("program1"), "Program", crm, "program_final"))
               ),
-              fluidRow(
-                column(6, mod_general_select_ui(ns("lead_type1"), "Lead Type", crm, "lead_type")),
-                column(6, mod_general_select_ui(ns("program1"), "Program", crm, "program_final"))
-              )
+              style = "border-radius: class='rounded-9';"
       )
 
     ),
 
     fluidRow(
-      bs4Card(title = "Conversion Metrics",
+      bs4Card(title = strong("Conversion Metrics"),
               id = "card_convmetrics",
               maximizable = TRUE,
-              height = 500,
+              height = 550,
               mod_conversions_table_ui(ns("conversions_table_1"))
               ),
 
-      bs4Card(title = "Monthly Leads",
+      bs4Card(title = strong("Monthly Leads"),
               id = ns("card_monthlyleads"),
               maximizable = TRUE,
-              height = 500,
+              height = 550,
               uiOutput(ns("graph_monthlyleads"))
               )
 
@@ -83,13 +97,23 @@ mod_leads_overview_tab_ui <- function(id) {
         width = 12,
         fluidRow(
           column(6,
-                 mod_crm_metric_select_ui(ns("metric1"))
-                 ),
-          column(6,
-                 "Use this metric selector to further adjust the plots below that
-                 show comparisons in addition to the selectors and toggles at the
-                 top of the page."
-          )
+                 offset = 3,
+                 sliderInput(
+                   ns("slider1"),
+                   label = "",
+                   min = min(year(crm$Lead), na.rm = TRUE),
+                   max = max(year(crm$Lead), na.rm = TRUE),
+                   value = c(year(Sys.Date()) - 2,
+                             year(Sys.Date())),
+                   sep = "",
+                   ticks = FALSE
+                 ))
+        ),
+        fluidRow(
+          column(3, mod_crm_metric_select_ui(ns("metric1"))),
+          column(3, mod_general_select_ui(ns("school2"), "Schools", crm, "School Name")),
+          column(3, mod_general_select_ui(ns("lead_type2"), "Lead Type", crm, "lead_type")),
+          column(3, mod_general_select_ui(ns("program2"), "Program", crm, "program_final"))
         )
       )
 
@@ -97,16 +121,16 @@ mod_leads_overview_tab_ui <- function(id) {
 
     fluidRow(
 
-      bs4Card(title = "YOY Quarterly Comparison",
+      bs4Card(title = strong("YOY Quarterly Comparison"),
               id = ns("card_quarterlycomp"),
               maximizable = TRUE,
-              width = 6,
+              width = 5,
               uiOutput(ns("graph_quarterlycomp"))),
 
-      bs4Card(title = "YOY Monthly Comparison",
+      bs4Card(title = strong("YOY Monthly Comparison"),
               id = ns("card_monthlycomp"),
               maximizable = TRUE,
-              width = 6,
+              width = 7,
               uiOutput(ns("graph_monthlycomp")))
 
     )
@@ -213,6 +237,16 @@ mod_leads_overview_tab_server <- function(id){
     # mod_monthly_leads_graph_server("monthly_leads_graph_2", leads_filtered_crm, maximized = TRUE)
     # mod_monthly_leads_graph_server("monthly_leads_graph_3", leads_filtered_crm, maximized = FALSE)
 
+    ## Inputs needed for remaining graphs
+    school2 <- mod_general_select_server("school2")
+    lead_type2 <- mod_general_select_server("lead_type2")
+    program2 <- mod_general_select_server("program2")
+
+    custom_date <- list(start = NA, end = NA)
+    custom_date$start <- reactive({paste0(input$slider1[1], "-01-01")})
+    custom_date$end <- reactive({paste0(input$slider1[2], "-12-31")})
+
+
     ## card_quarterlycomp
     ### UI
     max_quarterlycomp <- reactive({input$card_quarterlycomp$maximized})
@@ -235,7 +269,7 @@ mod_leads_overview_tab_server <- function(id){
 
     ### Server
     metric1 <- mod_crm_metric_select_server("metric1")
-    metrics_filtered_data <- filter_data_with_metric(crm, school1, lead_type1, program1, metric1, date1)
+    metrics_filtered_data <- filter_data_with_metric(crm, school2, lead_type2, program2, metric1, custom_date)
 
     mod_quarterly_metrics_graph_server("quarterly_metrics_graph_max", metrics_filtered_data, metric1, maximized = TRUE)
     mod_quarterly_metrics_graph_server("quarterly_metrics_graph_min", metrics_filtered_data, metric1, maximized = FALSE)
