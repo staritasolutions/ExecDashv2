@@ -37,14 +37,14 @@ mod_school_comp_graph_server <- function(id, data, metric, maximized = FALSE){
     })
 
     # Plot adjustments
-    if (maximized) {
+    if(maximized) {
       width <- 18
       height <- 8
-      legend_position = "top"
+      legend_position = "right"
     } else {
-      width <- 14
+      width <- 16
       height <- 6
-      legend_position = "none"
+      legend_position = "top"
     }
 
     p2 <- reactive ({
@@ -59,7 +59,8 @@ mod_school_comp_graph_server <- function(id, data, metric, maximized = FALSE){
         geom_line(linewidth = 3, linetype = "dashed", alpha = 0.5) +
         geom_point_interactive(size = 8) +
         labs(y = str_to_title(metric()),
-             color = "School") +
+             color = "School",
+             x = NULL) +
         theme_minimal(base_size = 16) +
         theme(legend.position = legend_position)
 

@@ -52,7 +52,7 @@ mod_school_comp_table_server <- function(id, data){
                   dom = "t",
                   columnDefs = list(list(
                     className = 'dt-center',
-                    targets = 1:4
+                    targets = 1:7
                   ))
                 ))  %>%
         formatPercentage(c(2,3,4,5,6,7))
