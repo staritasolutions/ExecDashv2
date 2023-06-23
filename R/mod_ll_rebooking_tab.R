@@ -10,35 +10,86 @@
 mod_ll_rebooking_tab_ui <- function(id){
   ns <- NS(id)
   tagList(
-    mod_general_select_ui(ns("school"), "School", learning_leader, "Campus"),
-    mod_date_select_ui(ns("date"), start = "2023-01-01"),
-    pickerInput(
-      ns("ll"),
-      "Learning Leader",
-      choices = sort(unique(learning_leader$`Learning Leader`)),
-      selected = sort(unique(learning_leader$`Learning Leader`)),
-      multiple = TRUE,
-      options = pickerOptions(actionsBox = TRUE,
-                              liveSearch = TRUE)
+
+    fluidRow(
+      bs4Card(
+        title = "Learning Leader - Rebooking",
+        id = "card_rebookinfo",
+        maximizable = FALSE,
+        width = 12,
+        fluidRow(
+          column(
+            width = 6,
+            mod_general_select_ui(ns("school"), "School", learning_leader, "Campus")
+            ),
+          column(
+            width = 6,
+            mod_date_select_ui(ns("date"), start = "2023-01-01")
+          )
+        )
+      )
     ),
-    sliderInput(
-      ns("minguests"),
-      "Minimum Guests Serviced",
-      min = 1,
-      max = 100,
-      value = 20
-    ),
-    pickerInput(
-      ns("ll2"),
-      "Learning Leader",
-      choices = sort(unique(learning_leader$`Learning Leader`)),
-      selected = sort(unique(learning_leader$`Learning Leader`))[2],
-      multiple = TRUE,
-      options = pickerOptions(actionsBox = TRUE,
-                              liveSearch = TRUE)
-    ),
-    DTOutput(ns("table")),
-    girafeOutput(ns("plot"))
+
+    fluidRow(
+      bs4Card(
+        title = "Rebooking Table",
+        id = "card_rebooktable",
+        maximizable = TRUE,
+        width = 12,
+        fluidRow(
+          column(
+            width = 3,
+            pickerInput(
+              ns("ll"),
+              "Learning Leader",
+              choices = sort(unique(learning_leader$`Learning Leader`)),
+              selected = sort(unique(learning_leader$`Learning Leader`)),
+              multiple = TRUE,
+              options = pickerOptions(actionsBox = TRUE,
+                                      liveSearch = TRUE)
+            )
+          ),
+          column(
+            width = 3,
+            sliderInput(
+              ns("minguests"),
+              "Minimum Guests Serviced",
+              min = 1,
+              max = 100,
+              value = 20
+            )
+          )
+        ),
+        fluidRow(
+          DTOutput(ns("table"))
+        )
+      )
+      ),
+    fluidRow(
+      bs4Card(
+        title = "Rebooking Plot",
+        id = "card_rebookplt",
+        maximizable = TRUE,
+        width = 12,
+        fluidRow(
+          column(
+            width = 3,
+            pickerInput(
+              ns("ll2"),
+              "Learning Leader",
+              choices = sort(unique(learning_leader$`Learning Leader`)),
+              selected = sort(unique(learning_leader$`Learning Leader`))[2],
+              multiple = TRUE,
+              options = pickerOptions(actionsBox = TRUE,
+                                      liveSearch = TRUE)
+            )
+          )
+        ),
+        fluidRow(
+          girafeOutput(ns("plot"))
+        )
+      )
+    )
 
   )
 }
@@ -134,12 +185,17 @@ mod_ll_rebooking_tab_server <- function(id){
                                    tooltip = tooltip)) +
         geom_line(linewidth = 1) +
         geom_point_interactive(size = 3) +
-        labs(color = "")
+        labs(color = "") +
+        theme(
+          legend.position = "top"
+        )
     })
 
     output$plot <- renderGirafe({
       girafe(ggobj = p(),
-             width = 12)
+             width = 12,
+             height = 4) %>%
+        girafe_options(opts_tooltip(zindex = 9999))
     })
 
   })

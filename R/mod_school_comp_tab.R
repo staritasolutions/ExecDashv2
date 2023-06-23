@@ -12,7 +12,7 @@ mod_school_comp_tab_ui <- function(id){
   tagList(
     fluidRow(
       bs4Card(
-        title = "CRM - School Comparison",
+        title = strong("CRM - School Comparison", style = "font-size:25px;"),
         id = "card_schoolcomparison",
         width = 12,
         "Welcome to the CRM school comparison page. This box contains the controls
@@ -28,7 +28,7 @@ mod_school_comp_tab_ui <- function(id){
 
     fluidRow(
       bs4Card(
-        title = "School Comparisons Table",
+        title = strong("School Comparisons Table"),
         id = "card_schoolcomptable",
         width = 12,
         maximizable = TRUE,
@@ -51,7 +51,7 @@ mod_school_comp_tab_ui <- function(id){
 
     fluidRow(
       bs4Card(
-        title = "School Comparisons Graph",
+        title = strong("School Comparisons Graph"),
         id = ns("card_schoolcompgraph"),
         width = 12,
         maximizable = TRUE,

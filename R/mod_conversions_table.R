@@ -79,10 +79,27 @@ mod_conversions_table_server <- function(id, data){
         gt() %>%
         fmt_percent(columns = c(L2P:L2Act, `% of Total`), decimals = 0) %>%
         data_color(columns = L2P:L2Act,
-                   palette = c("#F9ACB1", "white", "#96C4DB")
+                   palette = c("#F9ACB1", "white", "#96C4DB"),
+                   na_color = "transparent",
                    #,domain = c(0,1)
                    ) %>%
-        fmt_number(columns = "Lead Total", decimals = 0)
+        fmt_number(columns = "Lead Total", decimals = 0) %>%
+        tab_options(
+          #table.border.bottom.style = "hidden",
+          table.border.top.style = "hidden"
+        ) %>%
+        opt_stylize(style = 1, color = "gray", add_row_striping = TRUE) %>%
+        cols_width(
+          L2P:L2Act ~ px(50)
+        ) %>%
+        cols_align(
+          align = "center",
+          columns = 2:8
+        ) %>%
+        sub_missing(
+          columns = L2P:L2Act,
+          missing_text = "---"
+        )
 
   })
 

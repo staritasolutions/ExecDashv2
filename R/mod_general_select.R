@@ -19,12 +19,13 @@ mod_general_select_ui <- function(id, title, data, metric, selected_count = NULL
   tagList(
     pickerInput(
       ns("list"),
-      title,
-      sort(unique(data[[metric]])),
+      choices = sort(unique(data[[metric]])),
       multiple = select_multiple,
       selected = default_selected,
       options = pickerOptions(actionsBox = TRUE,
-                              liveSearch = TRUE)
+                              liveSearch = TRUE,
+                              selectedTextFormat = "static",
+                              title = title)
     )
   )
 }

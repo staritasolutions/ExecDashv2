@@ -32,21 +32,60 @@ app_ui <- function(request) {
           id = "sidebarmenu",
           flat = TRUE,
           childIndent = TRUE,
-          sidebarHeader("CRM"),
-          menuItem("Leads Overview", tabName = "leadsoverview"),
-          menuItem("School Comparison", tabName = "schoolcomparison"),
-          menuItem("ROI", tabName = "roi"),
-          menuItem("Start Dates", tabName = "startdates"),
-          sidebarHeader("Freedom"),
-          menuItem("Executive View", tabName = "freedomexecview"),
-          menuItem("School View", tabName = "freedomschoolview"),
-          sidebarHeader("Meevo"),
-          menuItem("Executive View", tabName = "meevoexecview"),
-          menuItem("School View", tabName = "meevoschoolview"),
-          sidebarHeader("Learning Leader"),
-          menuItem("Rebooking", tabName = "llrebooking"),
-          menuItem("Take Home", tabName = "lltakehome"),
-          menuItem("Services", tabName = "llservices")
+          #sidebarHeader("CRM"),
+          menuItem("CRM", tabName = "crm",
+                   icon = icon(name = "lightbulb", lib = "font-awesome"),
+                   menuSubItem(
+                     text = "Leads Overview",
+                     tabName = "leadsoverview"
+                   ),
+                   menuSubItem(
+                     text = "School Comparison",
+                     tabName = "schoolcomparison"
+                   ),
+                   menuSubItem(
+                     text = "ROI",
+                     tabName = "roi"
+                   ),
+                   menuSubItem(
+                     text = "Start Dates",
+                     tabName = "startdates"
+                   )
+                   ),
+          menuItem("Freedom", tabName = "freedom",
+                   menuSubItem(
+                     text = "Executive View",
+                     tabName = "freedomexecview"
+                   ),
+                   menuSubItem(
+                     text = "School View",
+                     tabName = "freedomschoolview"
+                   )
+                   ),
+          menuItem("Meevo", tabName = "meevo",
+                   menuSubItem(
+                     text = "Executive View",
+                     tabName = "meevoexecview"
+                   ),
+                   menuSubItem(
+                     text = "School View",
+                     tabName = "meevoschoolview"
+                   )
+                   ),
+          menuItem("Learning Leader", tabName = "ll",
+                   menuSubItem(
+                     text = "Rebooking",
+                     tabName = "llrebooking"
+                   ),
+                   menuSubItem(
+                     text = "Take Home",
+                     tabName = "lltakehome",
+                   ),
+                   menuSubItem(
+                     text = "Services",
+                     tabName = "llservices"
+                   )
+                   )
 
         )
       ),

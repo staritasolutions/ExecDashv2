@@ -43,9 +43,9 @@ mod_quarterly_metrics_graph_server <- function(id, data, metric, maximized = FAL
 
     # Plot adjustments
     if (maximized) {
-      width <- 12
+      width <- 15
     } else {
-      width <- 8
+      width <- 6
     }
 
     p1_3 <- reactive({

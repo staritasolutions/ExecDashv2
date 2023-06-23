@@ -40,7 +40,7 @@ mod_yearly_metrics_graph_server <- function(id, data, metric, maximized = FALSE)
 
     # Plot adjustments
     if (maximized) {
-      width <- 12
+      width <- 15
     } else {
       width <- 8
     }

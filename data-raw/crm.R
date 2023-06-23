@@ -217,7 +217,9 @@ crm <- crm_raw %>%
          Tour = `Tour Completed Date`,
          Application = `Application Date`,
          Enrolled = `Contracted Date`,
-         Active = `Enrollment Date`)
+         Active = `Enrollment Date`) %>%
+  # Remove the "Paul Mitchell The School" because it's known and redundant
+  mutate(`School Name` = str_extract(`School Name`, "(?<=Paul Mitchell The School\\s).*"))
 
 usethis::use_data(crm, overwrite = TRUE)
 

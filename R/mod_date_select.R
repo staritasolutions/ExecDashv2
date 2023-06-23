@@ -11,9 +11,10 @@ mod_date_select_ui <- function(id, start = floor_date(Sys.Date(), unit = "year")
   ns <- NS(id)
   tagList(
     dateRangeInput(ns("date"),
-                   "Date Range",
-                   start,
-                   end)
+                   label = NULL,
+                   start = start,
+                   end = end,
+                   format = "M d, yyyy")
   )
 }
 

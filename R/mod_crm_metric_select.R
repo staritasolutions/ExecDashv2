@@ -11,7 +11,6 @@ mod_crm_metric_select_ui <- function(id){
   ns <- NS(id)
   tagList(
     pickerInput(ns("Metric"),
-                label = "Metric",
                 choices = c("Lead",
                             "Prospect",
                             "Tour",
@@ -21,7 +20,9 @@ mod_crm_metric_select_ui <- function(id){
                 multiple = FALSE,
                 selected = "Lead",
                 options = pickerOptions(actionsBox = TRUE,
-                                        liveSearch = TRUE))
+                                        liveSearch = TRUE,
+                                        selectedTextFormat = "static",
+                                        title = "Metric"))
   )
 }
 
