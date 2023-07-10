@@ -6,6 +6,7 @@
 #' @import bs4Dash
 #' @import bslib
 #' @noRd
+#' @include app_server.R
 
 theme_set(theme_minimal())
 

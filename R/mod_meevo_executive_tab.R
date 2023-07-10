@@ -61,7 +61,7 @@ mod_meevo_executive_tab_ui <- function(id){
             below.",
           column(
             6,
-            mod_general_select_ui(ns("school"), "Schools", meevo, "School", 3)
+            uiOutput(ns("school_ui"))
           ),
           column(
             6,
@@ -103,7 +103,7 @@ mod_meevo_executive_tab_ui <- function(id){
 #' meevo_executive_tab Server Functions
 #'
 #' @noRd
-mod_meevo_executive_tab_server <- function(id){
+mod_meevo_executive_tab_server <- function(id, meevo){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     date1 <- mod_date_select_server("date1")
@@ -119,6 +119,9 @@ mod_meevo_executive_tab_server <- function(id){
     })
     mod_service_sales_by_school_graph_server("service_sales_by_school_graph_1", filtered_meevo)
     mod_takehome_by_school_graph_server("takehome_by_school_graph_1", filtered_meevo)
+    output$school_ui <- renderUI({
+      mod_general_select_ui(ns("school"), "Schools", meevo, "School", 3)
+    })
     school <- mod_general_select_server("school")
     mod_metrics_over_time_graph_server("metrics_over_time_graph_1", meevo, school, date1, reactive({input$metric}))
     mod_meevo_metrics_table_server("meevo_metrics_table_1", meevo, school, date1, reactive({input$metric}))

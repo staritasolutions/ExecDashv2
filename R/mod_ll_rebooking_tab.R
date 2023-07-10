@@ -20,7 +20,7 @@ mod_ll_rebooking_tab_ui <- function(id){
         fluidRow(
           column(
             width = 6,
-            mod_general_select_ui(ns("school"), "School", learning_leader, "Campus")
+            uiOutput(ns("school_ui"))
             ),
           column(
             width = 6,
@@ -39,15 +39,8 @@ mod_ll_rebooking_tab_ui <- function(id){
         fluidRow(
           column(
             width = 3,
-            pickerInput(
-              ns("ll"),
-              "Learning Leader",
-              choices = sort(unique(learning_leader$`Learning Leader`)),
-              selected = sort(unique(learning_leader$`Learning Leader`)),
-              multiple = TRUE,
-              options = pickerOptions(actionsBox = TRUE,
-                                      liveSearch = TRUE)
-            )
+            uiOutput(ns("ll_ui"))
+
           ),
           column(
             width = 3,
@@ -74,15 +67,7 @@ mod_ll_rebooking_tab_ui <- function(id){
         fluidRow(
           column(
             width = 3,
-            pickerInput(
-              ns("ll2"),
-              "Learning Leader",
-              choices = sort(unique(learning_leader$`Learning Leader`)),
-              selected = sort(unique(learning_leader$`Learning Leader`))[2],
-              multiple = TRUE,
-              options = pickerOptions(actionsBox = TRUE,
-                                      liveSearch = TRUE)
-            )
+            uiOutput(ns("ll2_ui"))
           )
         ),
         fluidRow(
@@ -97,11 +82,39 @@ mod_ll_rebooking_tab_ui <- function(id){
 #' ll_rebooking_tab Server Functions
 #'
 #' @noRd
-mod_ll_rebooking_tab_server <- function(id){
+mod_ll_rebooking_tab_server <- function(id, learning_leader){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
+
+    output$school_ui <- renderUI ({
+      mod_general_select_ui(ns("school"), "School", learning_leader, "Campus")
+    })
     school <- mod_general_select_server("school")
     date <- mod_date_select_server("date")
+
+    output$ll_ui <- renderUI({
+      pickerInput(
+      ns("ll"),
+      "Learning Leader",
+      choices = sort(unique(learning_leader$`Learning Leader`)),
+      selected = sort(unique(learning_leader$`Learning Leader`)),
+      multiple = TRUE,
+      options = pickerOptions(actionsBox = TRUE,
+                              liveSearch = TRUE)
+    )
+    })
+
+    output$ll2_ui <- renderUI({
+      pickerInput(
+        ns("ll2"),
+        "Learning Leader",
+        choices = sort(unique(learning_leader$`Learning Leader`)),
+        selected = sort(unique(learning_leader$`Learning Leader`))[2],
+        multiple = TRUE,
+        options = pickerOptions(actionsBox = TRUE,
+                                liveSearch = TRUE)
+      )
+    })
 
     observe({
       update_df <- learning_leader %>%

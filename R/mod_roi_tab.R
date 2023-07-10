@@ -22,7 +22,7 @@ mod_roi_tab_ui <- function(id){
         sidebarLayout(
           sidebarPanel(
             mod_date_select_ui(ns("date1")),
-            mod_general_select_ui(ns("school1"), "Schools", crm, "School Name"),
+            uiOutput(ns("school1_ui")),
             shinyWidgets::currencyInput(ns("budget"),
                           "Input Your Monthly Budget",
                           value = 1000,
@@ -42,10 +42,13 @@ mod_roi_tab_ui <- function(id){
 #' roi_tab Server Functions
 #'
 #' @noRd
-mod_roi_tab_server <- function(id){
+mod_roi_tab_server <- function(id, crm){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     date1 <- mod_date_select_server("date1")
+    output$school1_ui <- renderUI({
+      mod_general_select_ui(ns("school1"), "Schools", crm, "School Name")
+    })
     school1 <- mod_general_select_server("school1")
     roi_data <- reactive ({
       crm %>%

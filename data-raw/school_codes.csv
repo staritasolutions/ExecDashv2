@@ -13,7 +13,7 @@ kiss_id,bus_name,Market Size
 5604,Farmington Hills,Large
 5614,NYC,Large
 5621,Sherman Oaks,Large
-5670,Cincinatti,Large
+5670,Cincinnati,Large
 5679,Dallas,Large
 5703,Phoenix,Large
 5704,East Bay,Large
@@ -105,5 +105,5 @@ kiss_id,bus_name,Market Size
 7539,St George,Small
 7600,Rapid City,Small
 7631,Twin Falls,Small
-5502,Cour D'Alene,Medium
+5502,Coeur D'Alene,Medium
 5512,Sarasota,Small

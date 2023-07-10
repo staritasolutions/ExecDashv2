@@ -23,7 +23,7 @@ mod_start_date_tab_ui <- function(id){
                  mod_date_select_ui(ns("date1"), start = Sys.Date(), end = Sys.Date() + 183)
                  ),
           column(6,
-                 mod_general_select_ui(ns("school1"), "Schools", crm, "School Name")
+                 uiOutput(ns("school1_ui"))
                  )
         )
       )
@@ -44,10 +44,13 @@ mod_start_date_tab_ui <- function(id){
 #' start_date_tab Server Functions
 #'
 #' @noRd
-mod_start_date_tab_server <- function(id){
+mod_start_date_tab_server <- function(id, crm){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     date1 <- mod_date_select_server("date1")
+    output$school1_ui <- renderUI({
+      mod_general_select_ui(ns("school1"), "Schools", crm, "School Name")
+    })
     school1 <- mod_general_select_server("school1")
     start_df <- reactive({
       crm %>% filter(`School Name` %in% school1()) %>%

@@ -28,7 +28,7 @@ mod_freedom_executive_tab_ui <- function(id){
                  mod_date_select_ui(ns("date1"))
                  ),
           column(6,
-                 mod_general_select_ui(ns("program1"), "Program", attendance, "revised_program")
+                 uiOutput(ns("program_ui1"))
                  )
         )
       )
@@ -100,11 +100,16 @@ mod_freedom_executive_tab_ui <- function(id){
 #' freedom_executive_tab Server Functions
 #'
 #' @noRd
-mod_freedom_executive_tab_server <- function(id){
+mod_freedom_executive_tab_server <- function(id, attendance){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
-    program1 <- mod_general_select_server("program1")
     date1 <- mod_date_select_server("date1")
+
+    output$program_ui1 <- renderUI({
+      mod_general_select_ui(ns("program1"), "Program", attendance, "revised_program")
+    })
+
+    program1 <- mod_general_select_server("program1")
 
     ## card_schoolattend
     ### UI

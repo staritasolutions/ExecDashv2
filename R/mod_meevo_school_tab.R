@@ -26,7 +26,7 @@ mod_meevo_school_tab_ui <- function(id){
         fluidRow(
           column(
             6,
-            mod_general_select_ui(ns("school"), "Schools", meevo, "School", 1, FALSE)
+            uiOutput(ns("school_ui"))
           ),
           column(
             6,
@@ -59,9 +59,12 @@ mod_meevo_school_tab_ui <- function(id){
 #' meevo_school_tab Server Functions
 #'
 #' @noRd
-mod_meevo_school_tab_server <- function(id){
+mod_meevo_school_tab_server <- function(id, meevo){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
+    output$school_ui <- renderUI({
+      mod_general_select_ui(ns("school"), "Schools", meevo, "School", 1, FALSE)
+    })
     school <- mod_general_select_server("school")
     date1 <- mod_date_select_server("date1")
 

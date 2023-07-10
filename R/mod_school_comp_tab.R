@@ -19,9 +19,9 @@ mod_school_comp_tab_ui <- function(id){
         needed for the table and graph below.",
         fluidRow(
           column(3, mod_date_select_ui(ns("date1"))),
-          column(3, mod_general_select_ui(ns("school1"), "Schools", crm, "School Name")),
-          column(3, mod_general_select_ui(ns("program1"), "Program", crm, "program_final")),
-          column(3, mod_general_select_ui(ns("lead_type1"), "Lead Type", crm, "lead_type"))
+          column(3, uiOutput(ns("school1_ui"))),
+          column(3, uiOutput(ns("program1_ui"))),
+          column(3, uiOutput(ns("lead_type1_ui")))
         )
       )
     ),
@@ -64,13 +64,25 @@ mod_school_comp_tab_ui <- function(id){
 #' school_comp_tab Server Functions
 #'
 #' @noRd
-mod_school_comp_tab_server <- function(id){
+mod_school_comp_tab_server <- function(id, crm){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
 
     date1 <- mod_date_select_server("date1")
+    output$school1_ui <- renderUI({
+      mod_general_select_ui(ns("school1"), "Schools", crm, "School Name")
+    })
     school1 <- mod_general_select_server("school1")
+
+    output$program1_ui <- renderUI({
+      mod_general_select_ui(ns("program1"), "Program", crm, "program_final")
+    })
     lead_type1 <- mod_general_select_server("lead_type1")
+
+    output$lead_type1_ui <- renderUI ({
+      mod_general_select_ui(ns("lead_type1"), "Lead Type", crm, "lead_type")
+    })
+
     program1 <- mod_general_select_server("program1")
     metric1 <- mod_crm_metric_select_server("metric1")
 

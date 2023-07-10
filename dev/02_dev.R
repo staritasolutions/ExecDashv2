@@ -83,6 +83,8 @@ usethis::use_data_raw(name = "ad_hoc", open = FALSE)
 usethis::use_data_raw(name = "scorecard", open = FALSE)
 usethis::use_data_raw(name = "meevo", open = FALSE)
 usethis::use_data_raw(name = "learning_leader", open = FALSE)
+usethis::use_data_raw(name = "school_codes", open = FALSE)
+usethis::use_data_raw(name = "revised_program", open = FALSE)
 
 ## Tests ----
 ## Add one line by test you want to create
@@ -158,3 +160,6 @@ usethis::use_package("DT")
 usethis::use_package("lubridate")
 usethis::use_package("spelling")
 usethis::use_package("tcltk")
+usethis::use_package("odbc")
+usethis::use_package("AzureStor")
+usethis::use_package("data.table")
