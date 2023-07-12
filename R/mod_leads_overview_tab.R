@@ -30,9 +30,9 @@ mod_leads_overview_tab_ui <- function(id) {
       bs4Card(title = strong("CRM - Leads Overview", style = "font-size:25px;"),
               id = "card_leadsoverview",
               width = 12,
-              "Welcome to the Leads Overview page. This box contains the controls
-              needed for the graphs and table below. Some of the boxes show additional
-              information or details when maximized.",
+              fluidRow(
+                em(paste0("Data last updated: ", Sys.Date()), style = "margin-bottom: 10px;")
+              ),
               fluidRow(
                 column(3, mod_date_select_ui(ns("date1"),
                                              start = custom_start,

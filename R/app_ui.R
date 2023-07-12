@@ -34,7 +34,7 @@ app_ui <- function(request) {
           childIndent = TRUE,
           #sidebarHeader("CRM"),
           menuItem("CRM", tabName = "crm",
-                   icon = icon(name = "lightbulb", lib = "font-awesome"),
+                   icon = icon(name = "calendar", lib = "font-awesome"),
                    menuSubItem(
                      text = "Leads Overview",
                      tabName = "leadsoverview"
@@ -53,6 +53,7 @@ app_ui <- function(request) {
                    )
                    ),
           menuItem("Freedom", tabName = "freedom",
+                   icon = icon(name = "user-clock", lib = "font-awesome"),
                    menuSubItem(
                      text = "Executive View",
                      tabName = "freedomexecview"
@@ -63,6 +64,7 @@ app_ui <- function(request) {
                    )
                    ),
           menuItem("Meevo", tabName = "meevo",
+                   icon = icon(name = "scissors", lib = "font-awesome"),
                    menuSubItem(
                      text = "Executive View",
                      tabName = "meevoexecview"
@@ -73,6 +75,7 @@ app_ui <- function(request) {
                    )
                    ),
           menuItem("Learning Leader", tabName = "ll",
+                   icon = icon(name = "chalkboard-user", lib = "font-awesome"),
                    menuSubItem(
                      text = "Rebooking",
                      tabName = "llrebooking"

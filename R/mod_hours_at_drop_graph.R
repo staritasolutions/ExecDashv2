@@ -102,7 +102,7 @@ mod_hours_at_drop_graph_server <- function(id, data, program, date, maximized = 
       width <- 8
       height <- 8
     } else {
-      width <- 6
+      width <- 8
       height <- 10
     }
 
@@ -118,7 +118,7 @@ mod_hours_at_drop_graph_server <- function(id, data, program, date, maximized = 
                    size = 2.5,
                    position = position_jitter(width = 0.1, height = 0)) +
         coord_flip() +
-        labs(y = "Hours at Drop",
+        labs(y = "\nHours at Drop",
              x = NULL) +
         theme(legend.position = "none",
               text = element_text(size = 20))

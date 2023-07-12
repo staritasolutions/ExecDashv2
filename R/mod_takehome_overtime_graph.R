@@ -21,6 +21,21 @@ mod_takehome_overtime_graph_ui <- function(id){
 mod_takehome_overtime_graph_server <- function(id, data){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
+
+    perc_change_col <- reactive({
+      if ((sum(data()$`Take Home`)-sum(data()$prev_year_take_home))/sum(data()$prev_year_take_home) < 0) {
+        "firebrick"
+      } else {
+        "forestgreen"
+      }
+    })
+
+    cur_takehome <- reactive({format(round(sum(data()$`Take Home`)), big.mark = ",")})
+    prev_takehome <- reactive({format(round(sum(data()$prev_year_take_home)),big.mark = ",")})
+    perc_change <- reactive({percent(round((sum(data()$`Take Home`)-sum(data()$prev_year_take_home))/
+                                             sum(data()$prev_year_take_home),2))})
+
+
     p1 <- reactive({
       ggplot(data = data(), aes_string(x = "Date")) +
         geom_col_interactive(aes(y = prev_year_take_home, tooltip = take_home_tooltip), fill = "#0090e1", alpha = .5) +
@@ -29,12 +44,22 @@ mod_takehome_overtime_graph_server <- function(id, data){
         labs(y = "Take Home") +
         theme(legend.position = "top",
               panel.grid.major.x = element_blank(),
-              panel.grid.minor.x = element_blank()) +
-        labs(x = NULL,
-             y = NULL,
-             subtitle = paste0("Take Home: $", format(round(sum(data()$`Take Home`)), big.mark = ","),
-                               "\n","Previous Year Take Home: $", format(round(sum(data()$prev_year_take_home)),big.mark = ","),
-                               "\n", "Percentage Change: ", percent(round((sum(data()$`Take Home`)-sum(data()$prev_year_take_home))/sum(data()$prev_year_take_home),2)))) +
+              panel.grid.minor.x = element_blank(),
+              plot.subtitle = element_markdown(size = 16, hjust = 1)) +
+        labs(
+          x = NULL,
+          y = NULL,
+          subtitle = glue::glue(
+            '<span style = "color:#005481">**Take Home:**</span> $',
+            '{cur_takehome()}',
+            '<br>',
+            '<span style = "color:#0090e1">**Previous Year Take Home:**</span> $',
+            '{prev_takehome()}',
+            '<br>',
+            '<span style = "color: {perc_change_col()}">**Percentage Change:**</span> ',
+            '{perc_change()}'
+          )
+        ) +
         scale_y_continuous(labels=scales::dollar_format()) +
         scale_colour_identity()
 
