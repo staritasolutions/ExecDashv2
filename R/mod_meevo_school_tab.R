@@ -59,7 +59,7 @@ mod_meevo_school_tab_ui <- function(id){
 #' meevo_school_tab Server Functions
 #'
 #' @noRd
-mod_meevo_school_tab_server <- function(id, meevo){
+mod_meevo_school_tab_server <- function(id){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     output$school_ui <- renderUI({

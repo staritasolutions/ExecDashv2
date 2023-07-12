@@ -103,7 +103,7 @@ mod_meevo_executive_tab_ui <- function(id){
 #' meevo_executive_tab Server Functions
 #'
 #' @noRd
-mod_meevo_executive_tab_server <- function(id, meevo){
+mod_meevo_executive_tab_server <- function(id){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     date1 <- mod_date_select_server("date1")

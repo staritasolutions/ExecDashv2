@@ -88,7 +88,7 @@ mod_freedom_school_tab_ui <- function(id){
 #' freedom_school_tab Server Functions
 #'
 #' @noRd
-mod_freedom_school_tab_server <- function(id, attendance){
+mod_freedom_school_tab_server <- function(id){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     program1 <- mod_general_select_server("program1")

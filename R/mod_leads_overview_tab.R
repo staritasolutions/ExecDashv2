@@ -131,7 +131,7 @@ mod_leads_overview_tab_ui <- function(id) {
 #' leads_overview_tab Server Functions
 #'
 #' @noRd
-mod_leads_overview_tab_server <- function(id, crm){
+mod_leads_overview_tab_server <- function(id){
   moduleServer(id, function(input, output, session){
     ns <- session$ns
 

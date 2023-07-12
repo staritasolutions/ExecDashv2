@@ -82,7 +82,7 @@ mod_ll_rebooking_tab_ui <- function(id){
 #' ll_rebooking_tab Server Functions
 #'
 #' @noRd
-mod_ll_rebooking_tab_server <- function(id, learning_leader){
+mod_ll_rebooking_tab_server <- function(id){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
 
