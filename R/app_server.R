@@ -5,10 +5,13 @@
 #' @import shiny
 #' @import odbc
 #' @import AzureStor
+#' @import polished
 #' @noRd
 #'
 app_server <- function(input, output, session) {
   # Your application server logic
+
+
 
   azure_db_connection <- dbConnect(drv = odbc::odbc(),
                              driver = "/opt/microsoft/msodbcsql18/lib64/libmsodbcsql-18.2.so.2.1",
@@ -83,3 +86,4 @@ app_server <- function(input, output, session) {
   observe(print(input$card_monthlyleads$maximized))
 
 }
+

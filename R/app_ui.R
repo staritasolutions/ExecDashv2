@@ -20,6 +20,7 @@ app_ui <- function(request) {
       # removes light/dark mode toggle
       header = dashboardHeader(
         title = "Executive Dashboard",
+        tags$img(src = "www/Paul_Mitchell_logo.svg.png", height = "22px", width = "182px"),
         fixed = FALSE,
         skin = "light"
       ),
@@ -140,6 +141,7 @@ app_ui <- function(request) {
     )
   )
 }
+
 
 
 
