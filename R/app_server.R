@@ -12,7 +12,6 @@ app_server <- function(input, output, session) {
   # Your application server logic
 
 
-
   azure_db_connection <- dbConnect(drv = odbc::odbc(),
                              driver = "/opt/microsoft/msodbcsql18/lib64/libmsodbcsql-18.2.so.2.1",
                              server = "ss-solutions-server.database.windows.net",
