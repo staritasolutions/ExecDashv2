@@ -47,6 +47,7 @@ Collate:
     'mod_active_table.R'
     'mod_ad_hoc_boxes.R'
     'mod_ad_hoc_table.R'
+    'mod_attendance_boxes.R'
     'mod_attendance_by_school_graph.R'
     'mod_conversions_table.R'
     'mod_conversions_table_PMAE.R'
