@@ -13,14 +13,16 @@ mod_roi_tab_ui <- function(id){
   ns <- NS(id)
   tagList(
     bs4Card(
+      title = strong("CRM - ROI Lead Calculator", style = "font-size:25px;"),
       maximizable = TRUE,
       width = 12,
       fluidPage(
-        titlePanel(
-          "ROI Lead Calculator"
-        ),
+        # titlePanel(
+        #   "ROI Lead Calculator"
+        # ),
         sidebarLayout(
           sidebarPanel(
+            width = 3,
             mod_date_select_ui(ns("date1")),
             uiOutput(ns("school1_ui")),
             shinyWidgets::currencyInput(ns("budget"),
@@ -30,6 +32,7 @@ mod_roi_tab_ui <- function(id){
                           align = "left")
           ),
           mainPanel(
+            width = 9,
             mod_roi_graph_ui(ns("roi_graph_1"))
           )
         )

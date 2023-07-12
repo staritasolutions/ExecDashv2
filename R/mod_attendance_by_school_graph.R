@@ -32,16 +32,18 @@ mod_attendance_by_school_graph_server <- function(id, data, program, date, maxim
                   `Scheduled Hours` = sum(Scheduled_Hours),
                   `Attendance %` = sum(Actual_Hours)/sum(Scheduled_Hours)) %>%
         mutate(color_text = case_when(
-          `Attendance %` < .9 ~ "red",
-          TRUE ~ "black"
+          `Attendance %` < .9 ~ "#ff6865",
+          TRUE ~ "white"
         ),
         `Attendance %` = percent(round(`Attendance %`, 2))) %>%
         ungroup() %>%
-        pivot_longer(cols = `Actual Hours`:`Scheduled Hours`,
-                     names_to = "hours_type",
-                     values_to = "hours") %>%
+        # pivot_longer(cols = `Actual Hours`:`Scheduled Hours`,
+        #              names_to = "hours_type",
+        #              values_to = "hours") %>%
         mutate(tooltip = paste0(
-          "School: ", bus_name, "\n", "Hours: ", format(round(hours), big.mark = ",")
+          "School: ", bus_name, "\n",
+          "Actual Hours: ", format(round(`Actual Hours`), big.mark = ","), "\n",
+          "Scheduled Hours: ", format(round(`Scheduled Hours`), big.mark = ",")
         ))
     })
 
@@ -66,29 +68,26 @@ mod_attendance_by_school_graph_server <- function(id, data, program, date, maxim
     }
 
     p <- reactive({
-      ggplot(data = school_attendance_df(), aes_string(x = "bus_name",
-                                                       y = "hours",
-                                                       fill = "hours_type")) +
-        geom_col_interactive(aes(tooltip = tooltip),
-                             position = "dodge") +
-        guides(fill = guide_legend(title = "Hour Type")) +
-        theme(legend.position = "top",
-              plot.caption = element_text(hjust = 0.5, face = "italic"),
+      ggplot(data = school_attendance_df(), aes_string(x = "bus_name")) +
+        geom_col_interactive(aes(y = `Scheduled Hours`, tooltip = tooltip),
+                             fill = "#0090e1", alpha = .5) +
+        geom_col_interactive(aes(y = `Actual Hours`, tooltip = tooltip),
+                             fill = "#005481", width = 0.6) +
+        # guides(fill = guide_legend(title = "Hour Type")) +
+        theme(plot.caption = element_text(hjust = 0.5, face = "italic"),
               panel.grid.major.x = element_blank(),
               panel.grid.minor.x = element_blank()) +
         labs(x = NULL,
-             y = "Hours",
+             y = NULL,
              caption = " \n *Schools under 90% attendance are marked red. \n \n \n") +
         scale_y_continuous(labels = scales::comma) +
-        geom_label(data = school_attendance_df() %>%
+        geom_text(data = school_attendance_df() %>%
                      group_by(bus_name) %>%
                      slice_head(n = 1),
-                   aes(label = `Attendance %`, color = color_text, y = 0),
-                   fill = "white",
+                   aes(label = `Attendance %`, color = color_text, y = max(`Scheduled Hours`) * 0.03),
                    size = label_size)+
         scale_colour_identity() +
-        theme(legend.position = legend_position,
-              text = element_text(size = 20),
+        theme(text = element_text(size = 20),
               axis.text.x = element_text(angle = axis_text))
     })
 

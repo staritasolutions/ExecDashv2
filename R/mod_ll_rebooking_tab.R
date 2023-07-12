@@ -13,10 +13,13 @@ mod_ll_rebooking_tab_ui <- function(id){
 
     fluidRow(
       bs4Card(
-        title = "Learning Leader - Rebooking",
+        title = strong("Learning Leader - Rebooking", style = "font-size:25px;"),
         id = "card_rebookinfo",
         maximizable = FALSE,
         width = 12,
+        fluidRow(
+          em(paste0("Data last updated: ", Sys.Date()), style = "margin-bottom: 10px;")
+        ),
         fluidRow(
           column(
             width = 6,
@@ -24,7 +27,7 @@ mod_ll_rebooking_tab_ui <- function(id){
             ),
           column(
             width = 6,
-            mod_date_select_ui(ns("date"), start = "2023-01-01")
+            mod_date_select_ui(ns("date"), start = floor_date(Sys.Date(), unit = "year"))
           )
         )
       )
@@ -32,7 +35,7 @@ mod_ll_rebooking_tab_ui <- function(id){
 
     fluidRow(
       bs4Card(
-        title = "Rebooking Table",
+        title = strong("Rebooking Table"),
         id = "card_rebooktable",
         maximizable = TRUE,
         width = 12,
@@ -40,10 +43,9 @@ mod_ll_rebooking_tab_ui <- function(id){
           column(
             width = 3,
             uiOutput(ns("ll_ui"))
-
           ),
           column(
-            width = 3,
+            width = 8,
             sliderInput(
               ns("minguests"),
               "Minimum Guests Serviced",
@@ -60,7 +62,7 @@ mod_ll_rebooking_tab_ui <- function(id){
       ),
     fluidRow(
       bs4Card(
-        title = "Rebooking Plot",
+        title = strong("Rebooking Plot"),
         id = "card_rebookplt",
         maximizable = TRUE,
         width = 12,
@@ -158,7 +160,7 @@ mod_ll_rebooking_tab_server <- function(id){
         summarize(Guests = sum(Clients),
                   Rebooked = sum(Rebooked)) %>%
         ungroup() %>%
-        mutate(`Rebooking %` = round(Rebooked / Guests,2)) %>%
+        mutate(`Rebooking %` = round(Rebooked / Guests,2) * 100) %>%
         filter(Guests >= input$minguests)
     })
 
@@ -174,7 +176,7 @@ mod_ll_rebooking_tab_server <- function(id){
         filter(`Learning Leader` %in% input$ll2) %>%
         rename(Date = `Date Start`) %>%
         mutate(
-          `Rebooking %` = round(`Rebooking %`, 2) * 100
+          `Rebooking %` = round(`Rebooking %`, 2)
         ) %>%
         mutate(
           tooltip = paste0(
@@ -185,7 +187,7 @@ mod_ll_rebooking_tab_server <- function(id){
             `Learning Leader`,
             "\n",
             "Rebooking %: ",
-            `Rebooking %`
+            `Rebooking %` * 100
           )
         )
     })
@@ -198,10 +200,13 @@ mod_ll_rebooking_tab_server <- function(id){
                                    tooltip = tooltip)) +
         geom_line(linewidth = 1) +
         geom_point_interactive(size = 3) +
-        labs(color = "") +
+        labs(color = "",
+             y = NULL,
+             x = NULL) +
         theme(
           legend.position = "top"
-        )
+        ) +
+        scale_y_continuous(labels = scales::percent)
     })
 
     output$plot <- renderGirafe({

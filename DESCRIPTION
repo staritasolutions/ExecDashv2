@@ -17,6 +17,7 @@ Imports:
     DT,
     formattable,
     ggiraph,
+    ggtext,
     golem (>= 0.4.0),
     gt,
     lubridate,

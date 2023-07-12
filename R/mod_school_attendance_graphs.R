@@ -7,6 +7,7 @@
 #' @noRd
 #'
 #' @importFrom shiny NS tagList
+#' @import ggtext
 mod_school_attendance_graphs_ui <- function(id){
   ns <- NS(id)
   tagList(
@@ -51,13 +52,15 @@ mod_school_attendance_graphs_server <- function(id, data, school, program, date,
                mutate(tooltip = paste0("Week: ", Beginning_Date, "\n",
                                        "Attendance: ", percent(round(`Attendance %`,2)))),
              aes_string(x = "Beginning_Date", y = "`Attendance %`")) +
-        geom_line(color = "#005481") +
+        geom_hline(yintercept = .9, linetype = "dashed", color = "#009e73",
+                   size = 1.5, alpha = 0.8) +
+        geom_line(color = "#005481", size = 1.5, alpha = 0.5) +
         geom_point_interactive(aes(tooltip = tooltip),
                                color = "#005481",
                                size = 5) +
-        geom_hline(yintercept = .9, linetype = "dashed", color = "#009e73") +
         geom_label(y = .90, x = date$end()-7, color = "#009e73", label = "90%") +
-        labs(x = "Date") +
+        labs(x = NULL,
+             y = NULL) +
         scale_y_continuous(labels = scales::percent,
                            limits = c(.5,NA))
     })
@@ -95,13 +98,16 @@ mod_school_attendance_graphs_server <- function(id, data, school, program, date,
         theme(legend.position = "top",
               panel.grid.major.x = element_blank(),
               panel.grid.minor.x = element_blank(),
-              plot.caption = element_text(hjust = 0.5, face = "italic"),
-              plot.subtitle = element_text(hjust = 1)) +
+              plot.subtitle = element_text(hjust = 1, face = "italic"),
+              plot.caption = element_text(color = "#ff817e", size = 12),
+              plot.title = element_markdown(hjust = 0.5)) +
         labs(x = NULL,
-             caption = "*Weeks under 90% attendance are marked red.",
-             subtitle = paste0("Actual: ", format(round(sum(weekly_attendance_df2()$Actual_Hours)), big.mark = ","),
-                               "\n","Scheduled: ", format(round(sum(weekly_attendance_df2()$Scheduled_Hours)),big.mark = ","),
-                               "\n", "Percentage: ", percent(round(sum(weekly_attendance_df2()$Actual_Hours)/sum(weekly_attendance_df2()$Scheduled_Hours),2)))) +
+             y = NULL,
+             title = "<span style='color:#005481;font-size:22px'>**Actual Hours**</span>
+             within
+             <span style='color:#0090e1;font-size:22px'>**Scheduled Hours**</span>",
+             caption = "\n
+             *Weeks with less than 90% attendance") +
         geom_text(data = weekly_attendance_df() %>%
                     group_by(Beginning_Date) %>%
                     slice_head(n = 1),

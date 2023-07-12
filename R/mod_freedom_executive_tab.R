@@ -14,18 +14,15 @@ mod_freedom_executive_tab_ui <- function(id){
 
     fluidRow(
       bs4Card(
-        title = "Freedom - Executive View",
+        title = strong("Freedom - Executive View", style = "font-size:25px;"),
         id = "card_schoolcomparison",
         width = 12,
-        "Welcome to the Freedom Executive View. Here you will find an overview of
-        each of your school's data found on the Freedom platform. The controls in
-        this box apply to the Attendance bar chart and the Hours at Drop Distribution
-        rain cloud plots. Only the Program filter applies to the Currently Attending
-        & LOAs table. The Date Range filter will not affect the table because it
-        is focused on current status only.",
+        fluidRow(
+          em(paste0("Data last updated: ", Sys.Date()), style = "margin-bottom: 10px;")
+        ),
         fluidRow(
           column(6,
-                 mod_date_select_ui(ns("date1"))
+                 mod_date_select_ui(ns("date1"), start = Sys.Date() - months(6), end = Sys.Date())
                  ),
           column(6,
                  uiOutput(ns("program_ui1"))
@@ -36,7 +33,7 @@ mod_freedom_executive_tab_ui <- function(id){
 
     fluidRow(
       bs4Card(
-        title = "Attendance by School",
+        title = strong("Attendance by School"),
         id = ns("card_schoolattend"),
         width = 4,
         maximizable = TRUE,
@@ -44,7 +41,7 @@ mod_freedom_executive_tab_ui <- function(id){
         uiOutput(ns("graph_schoolattend"))
       ),
       bs4Card(
-        title = "Hours at Drop Distribution",
+        title = strong("Hours at Drop Distribution"),
         id = ns("card_hoursatdrop"),
         width = 4,
         maximizable = TRUE,
@@ -52,7 +49,7 @@ mod_freedom_executive_tab_ui <- function(id){
         uiOutput(ns("graph_hoursatdrop"))
       ),
       bs4Card(
-        title = "Currently Attending & LOAs",
+        title = strong("Currently Attending & LOAs"),
         id = "card_currenttable",
         width = 4,
         maximizable = TRUE,
@@ -63,12 +60,9 @@ mod_freedom_executive_tab_ui <- function(id){
 
     fluidRow(
       bs4Card(
-        title = "Enrollment Scorecard Inputs",
+        title = strong("Enrollment Scorecard Inputs"),
         id = "card_ersinputs",
         width = 12,
-        "Below are the controls and filters available for the Enrollment Scorecard.
-        This is the same Enrollment Scorecard as on the PMAE tool, but specific
-        to your schools here for ease of access.",
         fluidRow(
           column(4,
                  mod_date_select_ui(ns("date2"))
@@ -85,7 +79,7 @@ mod_freedom_executive_tab_ui <- function(id){
 
     fluidRow(
       bs4Card(
-        title = "Enrollment Scorecard",
+        title = strong("Enrollment Scorecard"),
         id = "card_ers",
         width = 12,
         maximizable = TRUE,

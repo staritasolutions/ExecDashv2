@@ -30,7 +30,7 @@ mod_start_date_table_server <- function(id, data){
                     Application = sum(ifelse(`Workflow Status` == "Application", 1, 0)),
                     Enrolled = sum(ifelse(`Workflow Status` == "Contracted", 1, 0)),
                     Active = sum(ifelse(`Workflow Status` == "Enrolled", 1, 0))) %>%
-          arrange(`Start Date`)
+          arrange(desc(`Start Date`))
       })
 
       output$start_date_table <- DT::renderDT({

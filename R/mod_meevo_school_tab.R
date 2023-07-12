@@ -13,16 +13,13 @@ mod_meevo_school_tab_ui <- function(id){
 
     fluidRow(
       bs4Card(
-        title = "Meevo - School View",
+        title = strong("Meevo - School View", style = "font-size:25px;"),
         id = "card_meevoschool",
         width = 12,
         maximizable = FALSE,
-        "Welcome to the Meevo School View tab. Here you will be able to select the
-        school you are interested in and view the Meevo metrics and data relevant
-        to each individual school. The School and Date Range filters in this box
-        will adjust the graphs below. For comparison in each of the graphs, the darker blue bar
-        in the foreground represents the more recent month, while the lighter blue
-        bar represents the data from the year prior to the dark blue bar.",
+        fluidRow(
+          em(paste0("Data last updated: ", Sys.Date()), style = "margin-bottom: 10px;")
+        ),
         fluidRow(
           column(
             6,
@@ -38,14 +35,14 @@ mod_meevo_school_tab_ui <- function(id){
 
     fluidRow(
       bs4Card(
-        title = "Monthly Service Sales",
+        title = strong("Monthly Service Sales"),
         id = "card_servicesales",
         width = 6,
         maximizable = FALSE,
         mod_service_sales_overtime_graph_ui(ns("service_sales_overtime_graph_1"))
       ),
       bs4Card(
-        title = "Monthly Take Home",
+        title = strong("Monthly Take Home"),
         id = "card_takehome",
         width = 6,
         maximizable = FALSE,
