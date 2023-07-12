@@ -40,10 +40,24 @@ mod_active_table_server <- function(id, data){
 
     output$active_table <- render_gt(
       gt(active_table_df %>%
-           select(School, Active, LOA), rowname_col = "School") %>%
+           select(School, Active, LOA)) %>%
+        cols_align(align = "left", columns = 1) %>%
         cols_align(align = "center", columns = Active:LOA) %>%
-        tab_options(column_labels.padding.horizontal = px(30)) %>%
-        tab_header(title = "Currently Attending & LOA's")
+        # tab_options(column_labels.padding.horizontal = px(30)) %>%
+        opt_stylize(style = 1, color = "gray", add_row_striping = TRUE) %>%
+        tab_options(
+          table.border.top.style = "hidden",
+          table.width = pct(100),
+          data_row.padding = px(15)
+        ) %>%
+        tab_style(
+          style = list(
+            cell_text(align = "left")
+          ),
+          locations = cells_column_labels(
+            columns = School
+          )
+        )
     )
 
   })

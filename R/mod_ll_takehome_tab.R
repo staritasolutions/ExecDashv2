@@ -10,46 +10,105 @@
 mod_ll_takehome_tab_ui <- function(id){
   ns <- NS(id)
   tagList(
-    mod_general_select_ui(ns("school"), "School", learning_leader, "Campus"),
-    mod_date_select_ui(ns("date"), start = "2023-01-01"),
-    pickerInput(
-      ns("ll"),
-      "Learning Leader",
-      choices = sort(unique(learning_leader$`Learning Leader`)),
-      selected = sort(unique(learning_leader$`Learning Leader`)),
-      multiple = TRUE,
-      options = pickerOptions(actionsBox = TRUE,
-                              liveSearch = TRUE)
-    ),
-    sliderInput(
-      ns("minguests"),
-      "Minimum Guests Serviced",
-      min = 1,
-      max = 100,
-      value = 20
-    ),
-    pickerInput(
-      ns("ll2"),
-      "Learning Leader",
-      choices = sort(unique(learning_leader$`Learning Leader`)),
-      selected = sort(unique(learning_leader$`Learning Leader`))[2],
-      multiple = TRUE,
-      options = pickerOptions(actionsBox = TRUE,
-                              liveSearch = TRUE)
-    ),
-    pickerInput(
-      ns("metric"),
-      "Metric",
-      choices = c("TH $ / Guest",
-                  "Bottles/Guest"),
-      selected = "TH $ / Guest",
-      multiple = FALSE,
-      options = pickerOptions(actionsBox = TRUE,
-                              liveSearch = TRUE)
-    ),
-    DTOutput(ns("table")),
-    girafeOutput(ns("plot"))
 
+    fluidRow(
+      bs4Card(
+        title = strong("Learning Leader - Take Home", style = "font-size:25px"),
+        id = "card_thinfo",
+        maximizable = FALSE,
+        width = 12,
+        fluidRow(
+          em(paste0("Data last updated: ", Sys.Date()), style = "margin-bottom: 10px;")
+        ),
+        fluidRow(
+          column(
+            width = 6,
+            mod_general_select_ui(ns("school"), "School", learning_leader, "Campus")
+          ),
+          column(
+            width = 6,
+            mod_date_select_ui(ns("date"), start = floor_date(Sys.Date(), unit = "year"))
+          )
+        )
+      )
+    ),
+
+    fluidRow(bs4Card(
+      title = strong("Take Home Table"),
+      id = "card_thtable",
+      maximizable = TRUE,
+      width = 12,
+      fluidRow(column(
+        4,
+        pickerInput(
+          ns("ll"),
+          label = p("", style = "margin-top: 30px;"),
+          choices = sort(unique(learning_leader$`Learning Leader`)),
+          selected = sort(unique(learning_leader$`Learning Leader`)),
+          multiple = TRUE,
+          options = pickerOptions(
+            actionsBox = TRUE,
+            liveSearch = TRUE,
+            selectedTextFormat = "static",
+            title = "Learning Leader"
+          )
+        )
+      ),
+      column(
+        8,
+        sliderInput(
+          ns("minguests"),
+          "Minimum Guests Serviced",
+          min = 1,
+          max = 100,
+          value = 20
+        )
+      )),
+      fluidRow(
+        DTOutput(ns("table"))
+      )
+    )),
+
+    fluidRow(
+      bs4Card(
+        title = strong("Take Home Plot"),
+        id = "card_thplt",
+        maximizable = TRUE,
+        width = 12,
+        fluidRow(
+          column(
+            width = 3,
+            pickerInput(
+              ns("ll2"),
+              choices = sort(unique(learning_leader$`Learning Leader`)),
+              selected = sort(unique(learning_leader$`Learning Leader`))[2],
+              multiple = TRUE,
+              options = pickerOptions(actionsBox = TRUE,
+                                      liveSearch = TRUE,
+                                      selectedTextFormat = "static",
+                                      title = "Learning Leader")
+            )
+          ),
+          column(
+            width = 3,
+            pickerInput(
+              ns("metric"),
+              choices = c("TH $ / Guest",
+                          "Bottles/Guest"),
+              selected = "TH $ / Guest",
+              multiple = FALSE,
+              options = pickerOptions(actionsBox = TRUE,
+                                      liveSearch = TRUE,
+                                      selectedTextFormat = "static",
+                                      title = "Metric")
+          )
+        )
+      ),
+      fluidRow(
+        girafeOutput(ns("plot"))
+      )
+    )
+    )
 
   )
 }
@@ -148,7 +207,8 @@ mod_ll_takehome_tab_server <- function(id){
                                    tooltip = tooltip)) +
         geom_line(linewidth = 1) +
         geom_point_interactive(size = 3) +
-        labs(color = "")
+        labs(color = "",
+             x = NULL)
     })
 
     output$plot <- renderGirafe({

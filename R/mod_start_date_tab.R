@@ -13,14 +13,15 @@ mod_start_date_tab_ui <- function(id){
 
     fluidRow(
       bs4Card(
-        title = "CRM - Start Dates",
+        title = strong("CRM - Start Dates", style = "font-size:25px;"),
         id = "card_startdateinfo",
         width = 12,
-        "Welcome to the CRM Start Dates tab. Here you will find information on the
-        start dates your schools have, filterable by date and school.",
+        fluidRow(
+          em(paste0("Data last updated: ", Sys.Date()), style = "margin-bottom: 10px;")
+        ),
         fluidRow(
           column(6,
-                 mod_date_select_ui(ns("date1"), start = Sys.Date(), end = Sys.Date() + 183)
+                 mod_date_select_ui(ns("date1"), start = Sys.Date() - months(9), end = Sys.Date() + months(3))
                  ),
           column(6,
                  mod_general_select_ui(ns("school1"), "Schools", crm, "School Name")
@@ -31,7 +32,7 @@ mod_start_date_tab_ui <- function(id){
 
     fluidRow(
       bs4Card(
-        title = "Start Date Table",
+        title = strong("Start Date Table"),
         id = "card_startdatetable",
         width = 12,
         maximizable = TRUE,

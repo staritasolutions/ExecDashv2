@@ -15,8 +15,9 @@ mod_school_comp_tab_ui <- function(id){
         title = strong("CRM - School Comparison", style = "font-size:25px;"),
         id = "card_schoolcomparison",
         width = 12,
-        "Welcome to the CRM school comparison page. This box contains the controls
-        needed for the table and graph below.",
+        fluidRow(
+          em(paste0("Data last updated: ", Sys.Date()), style = "margin-bottom: 10px;")
+        ),
         fluidRow(
           column(3, mod_date_select_ui(ns("date1"))),
           column(3, mod_general_select_ui(ns("school1"), "Schools", crm, "School Name")),

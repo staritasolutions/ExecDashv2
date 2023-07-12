@@ -29,7 +29,7 @@ mod_ad_hoc_table_server <- function(id, data){
         filter = "none",
         options = list(
           pageLength = 15,
-          dom = "ltp",
+          dom = "tlp",
           columnDefs = list(list(
             className = 'dt-center',
             targets = 0:8
