@@ -37,9 +37,9 @@ mod_leads_overview_tab_ui <- function(id) {
                 column(3, mod_date_select_ui(ns("date1"),
                                              start = custom_start,
                                              end = Sys.Date())),
-                column(3, mod_general_select_ui(ns("school1"), "Schools", crm, "School Name")),
-                column(3, mod_general_select_ui(ns("lead_type1"), "Lead Type", crm, "lead_type")),
-                column(3, mod_general_select_ui(ns("program1"), "Program", crm, "program_final"))
+                column(3, uiOutput(ns("school1_ui")) ),
+                column(3, uiOutput(ns("lead_type1_ui"))),
+                column(3, uiOutput(ns("program1_ui")))
               ),
               style = "border-radius: class='rounded-9';"
       )
@@ -98,22 +98,13 @@ mod_leads_overview_tab_ui <- function(id) {
         fluidRow(
           column(6,
                  offset = 3,
-                 sliderInput(
-                   ns("slider1"),
-                   label = "",
-                   min = min(year(crm$Lead), na.rm = TRUE),
-                   max = max(year(crm$Lead), na.rm = TRUE),
-                   value = c(year(Sys.Date()) - 2,
-                             year(Sys.Date())),
-                   sep = "",
-                   ticks = FALSE
-                 ))
+                 uiOutput(ns("year_ui")))
         ),
         fluidRow(
           column(3, mod_crm_metric_select_ui(ns("metric1"))),
-          column(3, mod_general_select_ui(ns("school2"), "Schools", crm, "School Name")),
-          column(3, mod_general_select_ui(ns("lead_type2"), "Lead Type", crm, "lead_type")),
-          column(3, mod_general_select_ui(ns("program2"), "Program", crm, "program_final"))
+          column(3, uiOutput(ns("school2_ui"))),
+          column(3, uiOutput(ns("lead_type2_ui"))),
+          column(3, uiOutput(ns("program2_ui")))
         )
       )
 
@@ -146,8 +137,17 @@ mod_leads_overview_tab_server <- function(id){
 
     # First Row
     date1 <- mod_date_select_server("date1")
+    output$school1_ui <- renderUI ({
+      mod_general_select_ui(ns("school1"), "Schools", crm, "School Name")
+    })
     school1 <- mod_general_select_server("school1")
+    output$lead_type1_ui <- renderUI({
+      mod_general_select_ui(ns("lead_type1"), "Lead Type", crm, "lead_type")
+    })
     lead_type1 <- mod_general_select_server("lead_type1")
+    output$program1_ui <- renderUI ({
+      mod_general_select_ui(ns("program1"), "Program", crm, "program_final")
+    })
     program1 <- mod_general_select_server("program1")
     leads_filtered_crm <- filter_data(data = crm,
                                       school = school1,
@@ -238,9 +238,31 @@ mod_leads_overview_tab_server <- function(id){
     # mod_monthly_leads_graph_server("monthly_leads_graph_3", leads_filtered_crm, maximized = FALSE)
 
     ## Inputs needed for remaining graphs
+    output$school2_ui <- renderUI ({
+      mod_general_select_ui(ns("school2"), "Schools", crm, "School Name")
+    })
     school2 <- mod_general_select_server("school2")
+    output$lead_type2_ui <- renderUI({
+      mod_general_select_ui(ns("lead_type2"), "Lead Type", crm, "lead_type")
+    })
     lead_type2 <- mod_general_select_server("lead_type2")
+    output$program2_ui <- renderUI ({
+      mod_general_select_ui(ns("program2"), "Program", crm, "program_final")
+    })
     program2 <- mod_general_select_server("program2")
+
+    output$year_ui <- renderUI({
+      sliderInput(
+        ns("slider1"),
+        label = "",
+        min = min(year(crm$Lead), na.rm = TRUE),
+        max = max(year(crm$Lead), na.rm = TRUE),
+        value = c(year(Sys.Date()) - 2,
+                  year(Sys.Date())),
+        sep = "",
+        ticks = FALSE
+      )
+    })
 
     custom_date <- list(start = NA, end = NA)
     custom_date$start <- reactive({paste0(input$slider1[1], "-01-01")})
@@ -269,6 +291,8 @@ mod_leads_overview_tab_server <- function(id){
 
     ### Server
     metric1 <- mod_crm_metric_select_server("metric1")
+
+
     metrics_filtered_data <- filter_data_with_metric(crm, school2, lead_type2, program2, metric1, custom_date)
 
     mod_quarterly_metrics_graph_server("quarterly_metrics_graph_max", metrics_filtered_data, metric1, maximized = TRUE)

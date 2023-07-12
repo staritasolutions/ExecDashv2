@@ -9,9 +9,11 @@ Depends:
     R (>= 2.10),
     tidyverse
 Imports: 
+    AzureStor,
     bs4Dash,
     bslib,
     config (>= 0.3.1),
+    data.table,
     DT,
     formattable,
     ggiraph,
@@ -19,7 +21,9 @@ Imports:
     golem (>= 0.4.0),
     gt,
     lubridate,
+    odbc,
     pkgload,
+    polished,
     PupillometryR,
     scales,
     shiny (>= 1.7.3),
@@ -32,3 +36,50 @@ Encoding: UTF-8
 Language: en-US
 LazyData: true
 RoxygenNote: 7.2.3
+Collate: 
+    '_disable_autoload.R'
+    'app_config.R'
+    'app_server.R'
+    'app_ui.R'
+    'fct_crm_conversions.R'
+    'golem_utils_server.R'
+    'golem_utils_ui.R'
+    'mod_active_table.R'
+    'mod_ad_hoc_boxes.R'
+    'mod_ad_hoc_table.R'
+    'mod_attendance_by_school_graph.R'
+    'mod_conversions_table.R'
+    'mod_conversions_table_PMAE.R'
+    'mod_crm_metric_select.R'
+    'mod_date_select.R'
+    'mod_freedom_executive_tab.R'
+    'mod_freedom_school_tab.R'
+    'mod_general_select.R'
+    'mod_hours_at_drop_graph.R'
+    'mod_leads_overview_tab.R'
+    'mod_learning_leader_tab.R'
+    'mod_ll_rebooking_tab.R'
+    'mod_ll_services_tab.R'
+    'mod_ll_takehome_tab.R'
+    'mod_meevo_executive_tab.R'
+    'mod_meevo_metrics_table.R'
+    'mod_meevo_school_tab.R'
+    'mod_metrics_over_time_graph.R'
+    'mod_monthly_leads_graph.R'
+    'mod_quarterly_metrics_graph.R'
+    'mod_roi_graph.R'
+    'mod_roi_tab.R'
+    'mod_school_attendance_graphs.R'
+    'mod_school_comp_graph.R'
+    'mod_school_comp_tab.R'
+    'mod_school_comp_table.R'
+    'mod_school_comp_table_PMAE.R'
+    'mod_scorecard_table.R'
+    'mod_service_sales_by_school_graph.R'
+    'mod_service_sales_overtime_graph.R'
+    'mod_start_date_tab.R'
+    'mod_start_date_table.R'
+    'mod_takehome_by_school_graph.R'
+    'mod_takehome_overtime_graph.R'
+    'mod_yearly_metrics_graph.R'
+    'run_app.R'

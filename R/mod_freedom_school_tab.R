@@ -24,10 +24,10 @@ mod_freedom_school_tab_ui <- function(id){
                  mod_date_select_ui(ns("date1"), start = Sys.Date() - 35)
                  ),
           column(3,
-                 mod_general_select_ui(ns("school1"), "School", attendance, "bus_name")
+                 uiOutput(ns("school_ui1"))
                  ),
           column(3,
-                 mod_general_select_ui(ns("program1"), "Program", attendance, "revised_program")
+                 uiOutput(ns("program_ui1"))
                  ),
           column(3,
                  prettyRadioButtons(ns("attendance_graph_choice"),
@@ -88,6 +88,17 @@ mod_freedom_school_tab_server <- function(id){
     program1 <- mod_general_select_server("program1")
     date1 <- mod_date_select_server("date1")
     school1 <- mod_general_select_server("school1")
+
+
+    output$school_ui1 <- renderUI({
+      mod_general_select_ui(ns("school1"), "School", attendance, "bus_name")
+    })
+
+
+    output$program_ui1 <- renderUI({
+      mod_general_select_ui(ns("program1"), "Program", attendance, "revised_program")
+    })
+
     choice <- reactive({
       input$attendance_graph_choice
     })
