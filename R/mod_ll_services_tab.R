@@ -23,7 +23,7 @@ mod_ll_services_tab_ui <- function(id){
         fluidRow(
           column(
             width = 6,
-            mod_general_select_ui(ns("school"), "School", learning_leader, "Campus")
+            uiOutput(ns("school1_ui"))
           ),
           column(
             width = 6,
@@ -42,17 +42,8 @@ mod_ll_services_tab_ui <- function(id){
         fluidRow(
           column(
             4,
-            pickerInput(
-              ns("ll"),
-              label = p("", style = "margin-top: 30px;"),
-              choices = sort(unique(learning_leader$`Learning Leader`)),
-              selected = sort(unique(learning_leader$`Learning Leader`)),
-              multiple = TRUE,
-              options = pickerOptions(actionsBox = TRUE,
-                                      liveSearch = TRUE,
-                                      selectedTextFormat = "static",
-                                      title = "Learning Leader")
-            )
+            p("", style = "margin-top: 30px;"),
+            uiOutput(ns("ll_ui"))
           ),
           column(
             8,
@@ -80,16 +71,7 @@ mod_ll_services_tab_ui <- function(id){
         fluidRow(
           column(
             width = 3,
-            pickerInput(
-              ns("ll2"),
-              choices = sort(unique(learning_leader$`Learning Leader`)),
-              selected = sort(unique(learning_leader$`Learning Leader`))[2],
-              multiple = TRUE,
-              options = pickerOptions(actionsBox = TRUE,
-                                      liveSearch = TRUE,
-                                      selectedTextFormat = "static",
-                                      title = "Learning Leader")
-            )
+            uiOutput(ns("ll2_ui"))
           ),
           column(
             width = 3,
@@ -122,8 +104,27 @@ mod_ll_services_tab_ui <- function(id){
 mod_ll_services_tab_server <- function(id){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
+
+    output$school1_ui <- renderUI ({
+      mod_general_select_ui(ns("school"), "School", learning_leader, "Campus")
+    })
+
     school <- mod_general_select_server("school")
     date <- mod_date_select_server("date")
+
+    output$ll_ui <- renderUI ({
+      pickerInput(
+        ns("ll"),
+        #label = p("", style = "margin-top: 30px;"),
+        choices = sort(unique(learning_leader$`Learning Leader`)),
+        selected = sort(unique(learning_leader$`Learning Leader`)),
+        multiple = TRUE,
+        options = pickerOptions(actionsBox = TRUE,
+                                liveSearch = TRUE,
+                                selectedTextFormat = "static",
+                                title = "Learning Leader")
+      )
+    })
 
     observe({
       update_df <- learning_leader %>%
@@ -142,6 +143,19 @@ mod_ll_services_tab_server <- function(id){
                         inputId = "minguests",
                         value = (interval(date$start(), date$end()) %/% months(1) + 1) * 30,
                         max = (interval(date$start(), date$end()) %/% months(1) + 1) * 50
+      )
+    })
+
+    output$ll2_ui <- renderUI ({
+      pickerInput(
+        ns("ll2"),
+        choices = sort(unique(learning_leader$`Learning Leader`)),
+        selected = sort(unique(learning_leader$`Learning Leader`))[2],
+        multiple = TRUE,
+        options = pickerOptions(actionsBox = TRUE,
+                                liveSearch = TRUE,
+                                selectedTextFormat = "static",
+                                title = "Learning Leader")
       )
     })
 
@@ -210,13 +224,17 @@ mod_ll_services_tab_server <- function(id){
                                    tooltip = tooltip)) +
         geom_line(linewidth = 1) +
         geom_point_interactive(size = 3) +
+        theme(
+          legend.position = "top"
+        ) +
         labs(color = "",
              x = NULL)
     })
 
     output$plot <- renderGirafe({
       girafe(ggobj = p(),
-             width = 12)
+             width = 12,
+             height = 4)
     })
 
   })

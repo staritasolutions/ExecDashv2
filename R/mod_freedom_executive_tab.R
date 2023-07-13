@@ -68,10 +68,10 @@ mod_freedom_executive_tab_ui <- function(id){
                  mod_date_select_ui(ns("date2"))
                  ),
           column(4,
-                 mod_general_select_ui(ns("school2"), "School", scorecard, "School")
+                 uiOutput(ns("school2_ui"))
           ),
           column(4,
-                 mod_general_select_ui(ns("program2"), "Program", scorecard, "Program")
+                 uiOutput(ns("program2_ui"))
                  )
         )
       )
@@ -160,7 +160,17 @@ mod_freedom_executive_tab_server <- function(id){
     mod_active_table_server("active_table_1", ad_hoc)
 
     school2 <- mod_general_select_server("school2")
+
+    output$school2_ui <- renderUI ({
+      mod_general_select_ui(ns("school2"), "School", scorecard, "School")
+    })
+
     program2 <- mod_general_select_server("program2")
+
+    output$school2_ui <- renderUI ({
+      mod_general_select_ui(ns("program2"), "Program", scorecard, "Program")
+    })
+
     date2 <- mod_date_select_server("date2")
 
     mod_scorecard_table_server("scorecard_table_1", scorecard, school2, program2, date2)

@@ -41,7 +41,8 @@ mod_ll_rebooking_tab_ui <- function(id){
         width = 12,
         fluidRow(
           column(
-            width = 3,
+            width = 4,
+            p("", style = "margin-top: 30px;"),
             uiOutput(ns("ll_ui"))
           ),
           column(
@@ -94,28 +95,33 @@ mod_ll_rebooking_tab_server <- function(id){
     school <- mod_general_select_server("school")
     date <- mod_date_select_server("date")
 
-    output$ll_ui <- renderUI({
+    output$ll_ui <- renderUI ({
       pickerInput(
-      ns("ll"),
-      "Learning Leader",
-      choices = sort(unique(learning_leader$`Learning Leader`)),
-      selected = sort(unique(learning_leader$`Learning Leader`)),
-      multiple = TRUE,
-      options = pickerOptions(actionsBox = TRUE,
-                              liveSearch = TRUE)
-    )
+        ns("ll"),
+        choices = sort(unique(learning_leader$`Learning Leader`)),
+        selected = sort(unique(learning_leader$`Learning Leader`)),
+        multiple = TRUE,
+        options = pickerOptions(
+          actionsBox = TRUE,
+          liveSearch = TRUE,
+          selectedTextFormat = "static",
+          title = "Learning Leader"
+        )
+      )
     })
 
     output$ll2_ui <- renderUI({
       pickerInput(
         ns("ll2"),
-        "Learning Leader",
         choices = sort(unique(learning_leader$`Learning Leader`)),
         selected = sort(unique(learning_leader$`Learning Leader`))[2],
         multiple = TRUE,
-        options = pickerOptions(actionsBox = TRUE,
-                                liveSearch = TRUE)
-      )
+        options = pickerOptions(
+          actionsBox = TRUE,
+          liveSearch = TRUE,
+          selectedTextFormat = "static",
+          title = "Learning Leader"
+        ))
     })
 
     observe({
@@ -124,10 +130,13 @@ mod_ll_rebooking_tab_server <- function(id){
                  `Date Start` <= date$end()) %>%
         filter(Campus %in% school())
 
-      updatePickerInput(session,
-                        inputId = "ll",
-                        choices = sort(unique(update_df$`Learning Leader`)),
-                        selected = sort(unique(update_df$`Learning Leader`)))
+      pickerInput(
+        ns("ll"),
+        #label = p("", style = "margin-top: 30px;"),
+        choices = sort(unique(learning_leader$`Learning Leader`)),
+        selected = sort(unique(learning_leader$`Learning Leader`)),
+        multiple = TRUE
+      )
     })
 
     observe({
