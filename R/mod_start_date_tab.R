@@ -45,7 +45,7 @@ mod_start_date_tab_ui <- function(id){
 #' start_date_tab Server Functions
 #'
 #' @noRd
-mod_start_date_tab_server <- function(id){
+mod_start_date_tab_server <- function(id, crm){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     date1 <- mod_date_select_server("date1")

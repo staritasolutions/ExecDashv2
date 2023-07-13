@@ -65,7 +65,7 @@ mod_school_comp_tab_ui <- function(id){
 #' school_comp_tab Server Functions
 #'
 #' @noRd
-mod_school_comp_tab_server <- function(id){
+mod_school_comp_tab_server <- function(id, crm){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
 

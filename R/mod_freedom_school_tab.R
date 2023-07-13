@@ -64,7 +64,7 @@ mod_freedom_school_tab_ui <- function(id){
         fluidRow(
           column(
             6,
-            mod_general_select_ui(ns("school2"), "School", attendance, "bus_name")
+            uiOutput(ns("school2_ui"))
           ),
           column(
             6,
@@ -82,7 +82,7 @@ mod_freedom_school_tab_ui <- function(id){
 #' freedom_school_tab Server Functions
 #'
 #' @noRd
-mod_freedom_school_tab_server <- function(id){
+mod_freedom_school_tab_server <- function(id, attendance){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     program1 <- mod_general_select_server("program1")
@@ -109,6 +109,10 @@ mod_freedom_school_tab_server <- function(id){
     ## Stuff for Adhoc Table
     program2 <- mod_general_select_server("program2")
     school2 <- mod_general_select_server("school2")
+
+    output$school2_ui <- renderUI ({
+      mod_general_select_ui(ns("school2"), "School", attendance, "bus_name")
+    })
 
     fp_data <- reactive({
       ad_hoc %>%

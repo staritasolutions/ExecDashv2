@@ -94,7 +94,7 @@ mod_freedom_executive_tab_ui <- function(id){
 #' freedom_executive_tab Server Functions
 #'
 #' @noRd
-mod_freedom_executive_tab_server <- function(id){
+mod_freedom_executive_tab_server <- function(id, attendance){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     date1 <- mod_date_select_server("date1")

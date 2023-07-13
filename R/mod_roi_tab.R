@@ -45,7 +45,7 @@ mod_roi_tab_ui <- function(id){
 #' roi_tab Server Functions
 #'
 #' @noRd
-mod_roi_tab_server <- function(id){
+mod_roi_tab_server <- function(id, crm){
   moduleServer( id, function(input, output, session){
     ns <- session$ns
     date1 <- mod_date_select_server("date1")
