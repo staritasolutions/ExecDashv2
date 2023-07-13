@@ -13,7 +13,7 @@ filter_data <- function(data, schools, lead_type, program, metric, date) {
       filter(.data[[metric]] >= date$start() &
                .data[[metric]] <= date$end()) %>%
   filter(lead_type %in% lead_type()) %>%
-  filter(program %in% program())
+  filter(program_final %in% program())
   })
   return(df)
 }
